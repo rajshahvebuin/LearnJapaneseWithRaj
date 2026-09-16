@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/day-page.css" />
 </head>
 <body class="level-page n1">
 
@@ -37,68 +38,92 @@
     <div class="page-head">
       <span class="section-label">JLPT N1 · Module</span>
       <h1>Kanji</h1>
-      <p>Sample layout for a kanji list — each card shows the character, readings, meaning, stroke count and an example word.</p>
+      <p>Following <strong>日本語総まとめ N1 漢字</strong> (Nihongo Sou-Matome N1 Kanji) week by week, day by day — 2 pages a day, 7 days a week, 8 weeks. Days with content are highlighted below; the rest are added as we go.</p>
     </div>
 
     <div class="sample-note">
       <span>💡</span>
       <div>
-        <strong>Sample page</strong>
-        This is placeholder data showing the layout. Once you share the N1 book content, these cards will be replaced with the real kanji list.
+        <strong>Work in progress</strong>
+        Only Week 1 · Day 1 is built so far. This book's own answer key is a separate [別冊] booklet not included in the scan, so 練習 answers are reasoned from the book's definitions rather than an official key — flagged on each day page. Tell me which day to build next and it'll light up here.
       </div>
     </div>
 
-    <div class="toolbar">
-      <input type="search" data-search-input placeholder="Search kanji, readings, or meanings…" />
-    </div>
-
-    <div class="card-grid">
-      <div class="kanji-card" data-search-target="翻 ホン ほん-ん hirugaesu flip">
-        <div class="jp">翻</div>
-        <div class="readings"><b>音</b> ホン &nbsp; <b>訓</b> ひるがえ(す)</div>
-        <div class="meaning">flip over; translate</div>
-        <div class="meta"><span class="jlpt">N1</span><span>18 strokes</span></div>
-        <div class="example">例：翻訳（ほんやく）— translation</div>
+    <div class="week-list">
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第1週</span><span class="week-title">同じ部分・同じ音読みをもつ漢字を覚えよう① <span class="romaji" style="display:inline;">(Onaji bubun, onaji on'yomi o motsu kanji o oboeyou ①)</span></span></div>
+        <div class="day-chips">
+          <a class="day-chip ready" href="kanji/week-1/day-1.html">1日目</a>
+          <span class="day-chip soon">2日目</span>
+          <span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span>
+          <span class="day-chip soon">5日目</span>
+          <span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
       </div>
 
-      <div class="kanji-card" data-search-target="緩 カン ゆる-い ゆる-む slacken loosen">
-        <div class="jp">緩</div>
-        <div class="readings"><b>音</b> カン &nbsp; <b>訓</b> ゆる(い)・ゆる(む)</div>
-        <div class="meaning">slow; loose; lenient</div>
-        <div class="meta"><span class="jlpt">N1</span><span>15 strokes</span></div>
-        <div class="example">例：緩和（かんわ）— relaxation, easing</div>
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第2週</span><span class="week-title">同じ部分・同じ音読みをもつ漢字を覚えよう② <span class="romaji" style="display:inline;">(Onaji bubun, onaji on'yomi o motsu kanji o oboeyou ②)</span></span></div>
+        <div class="day-chips">
+          <span class="day-chip soon">1日目</span><span class="day-chip soon">2日目</span><span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span><span class="day-chip soon">5日目</span><span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
       </div>
 
-      <div class="kanji-card" data-search-target="紛 フン まぎ-れる まぎ-らわしい confuse mix">
-        <div class="jp">紛</div>
-        <div class="readings"><b>音</b> フン &nbsp; <b>訓</b> まぎ(れる)</div>
-        <div class="meaning">be mistaken for; be mixed with</div>
-        <div class="meta"><span class="jlpt">N1</span><span>10 strokes</span></div>
-        <div class="example">例：紛争（ふんそう）— dispute, conflict</div>
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第3週</span><span class="week-title">訓読みを覚えよう <span class="romaji" style="display:inline;">(Kun'yomi o oboeyou)</span></span></div>
+        <div class="day-chips">
+          <span class="day-chip soon">1日目</span><span class="day-chip soon">2日目</span><span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span><span class="day-chip soon">5日目</span><span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
       </div>
 
-      <div class="kanji-card" data-search-target="妥 ダ compromise valid">
-        <div class="jp">妥</div>
-        <div class="readings"><b>音</b> ダ &nbsp; <b>訓</b> —</div>
-        <div class="meaning">valid; proper; compromise</div>
-        <div class="meta"><span class="jlpt">N1</span><span>7 strokes</span></div>
-        <div class="example">例：妥協（だきょう）— compromise</div>
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第4週</span><span class="week-title">難しい読みを覚えよう <span class="romaji" style="display:inline;">(Muzukashii yomi o oboeyou)</span></span></div>
+        <div class="day-chips">
+          <span class="day-chip soon">1日目</span><span class="day-chip soon">2日目</span><span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span><span class="day-chip soon">5日目</span><span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
       </div>
 
-      <div class="kanji-card" data-search-target="憂 ユウ うれ-える うい sorrow melancholy">
-        <div class="jp">憂</div>
-        <div class="readings"><b>音</b> ユウ &nbsp; <b>訓</b> うれ(える)・う(い)</div>
-        <div class="meaning">grieve; be anxious; melancholy</div>
-        <div class="meta"><span class="jlpt">N1</span><span>15 strokes</span></div>
-        <div class="example">例：憂鬱（ゆううつ）— depression, gloom</div>
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第5週</span><span class="week-title">語彙で覚えよう① <span class="romaji" style="display:inline;">(Goi de oboeyou ①)</span></span></div>
+        <div class="day-chips">
+          <span class="day-chip soon">1日目</span><span class="day-chip soon">2日目</span><span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span><span class="day-chip soon">5日目</span><span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
       </div>
 
-      <div class="kanji-card" data-search-target="覆 フク おお-う くつがえ-す cover overturn">
-        <div class="jp">覆</div>
-        <div class="readings"><b>音</b> フク &nbsp; <b>訓</b> おお(う)・くつがえ(す)</div>
-        <div class="meaning">cover; overturn; capsize</div>
-        <div class="meta"><span class="jlpt">N1</span><span>18 strokes</span></div>
-        <div class="example">例：覆面（ふくめん）— mask, disguise</div>
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第6週</span><span class="week-title">語彙で覚えよう② <span class="romaji" style="display:inline;">(Goi de oboeyou ②)</span></span></div>
+        <div class="day-chips">
+          <span class="day-chip soon">1日目</span><span class="day-chip soon">2日目</span><span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span><span class="day-chip soon">5日目</span><span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第7週</span><span class="week-title">いろいろな覚え方をしよう <span class="romaji" style="display:inline;">(Iroiro na oboekata o shiyou)</span></span></div>
+        <div class="day-chips">
+          <span class="day-chip soon">1日目</span><span class="day-chip soon">2日目</span><span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span><span class="day-chip soon">5日目</span><span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-head"><span class="week-num">第8週</span><span class="week-title">新聞を読もう <span class="romaji" style="display:inline;">(Shinbun o yomou)</span></span></div>
+        <div class="day-chips">
+          <span class="day-chip soon">1日目</span><span class="day-chip soon">2日目</span><span class="day-chip soon">3日目</span>
+          <span class="day-chip soon">4日目</span><span class="day-chip soon">5日目</span><span class="day-chip soon">6日目</span>
+          <span class="day-chip soon">7日目 実戦問題</span>
+        </div>
       </div>
     </div>
   </main>
