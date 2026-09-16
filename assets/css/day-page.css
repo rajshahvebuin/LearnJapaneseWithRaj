@@ -143,8 +143,10 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .bp-badge.formal { color: #ffd27a; background: #3a2e10; border-color: #6b5220; }
+  :root:not([data-theme="light"]) .bp-badge.formal { color: #ffd27a; background: #3a2e10; border-color: #6b5220; }
 }
+
+:root[data-theme="dark"] .bp-badge.formal { color: #ffd27a; background: #3a2e10; border-color: #6b5220; }
 
 .bp-table-wrap { overflow-x: auto; margin-bottom: 16px; }
 
@@ -243,8 +245,10 @@ table.bp-options tr.correct td {
 }
 
 @media (prefers-color-scheme: dark) {
-  table.bp-options tr.correct td { background: #143b23; }
+  :root:not([data-theme="light"]) table.bp-options tr.correct td { background: #143b23; }
 }
+
+:root[data-theme="dark"] table.bp-options tr.correct td { background: #143b23; }
 
 table.bp-options tr.correct td:first-child::after {
   content: " ✅";

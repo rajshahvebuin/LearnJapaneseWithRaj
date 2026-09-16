@@ -19,7 +19,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #181513;
     --surface: #221e1b;
     --text: #f2ede7;
@@ -32,6 +32,22 @@
     --shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
     --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.45);
   }
+}
+
+/* Explicit theme override (set via the header toggle, persisted in localStorage) —
+   takes priority over the OS-level prefers-color-scheme above. */
+:root[data-theme="dark"] {
+  --bg: #181513;
+  --surface: #221e1b;
+  --text: #f2ede7;
+  --muted: #b6aca3;
+  --border: #362f2a;
+  --accent: #ff5c72;
+  --accent-2: #7fa1d6;
+  --accent-soft: #3a1f24;
+  --accent-2-soft: #1f2a3d;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.45);
 }
 
 * { box-sizing: border-box; }
@@ -100,6 +116,11 @@ a { color: inherit; }
   font-size: 0.95rem;
 }
 
+.header-controls {
+  display: flex;
+  align-items: center;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -136,6 +157,54 @@ a { color: inherit; }
   color: var(--text);
   font-size: 1.1rem;
   cursor: pointer;
+}
+
+.theme-toggle {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: 6px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+}
+
+.logout-btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  margin-left: 6px;
+  padding: 0 12px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-family: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.logout-btn:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 @media (max-width: 720px) {
@@ -644,9 +713,12 @@ a { color: inherit; }
 .quiz-item .choice.wrong { border-color: #e03131; background: #fdecec; color: #7c1414; }
 
 @media (prefers-color-scheme: dark) {
-  .quiz-item .choice.correct { background: #143b23; color: #8be3a6; }
-  .quiz-item .choice.wrong { background: #3b1414; color: #ff9b9b; }
+  :root:not([data-theme="light"]) .quiz-item .choice.correct { background: #143b23; color: #8be3a6; }
+  :root:not([data-theme="light"]) .quiz-item .choice.wrong { background: #3b1414; color: #ff9b9b; }
 }
+
+:root[data-theme="dark"] .quiz-item .choice.correct { background: #143b23; color: #8be3a6; }
+:root[data-theme="dark"] .quiz-item .choice.wrong { background: #3b1414; color: #ff9b9b; }
 
 /* ---------- footer ---------- */
 

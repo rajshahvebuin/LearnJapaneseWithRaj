@@ -1,5 +1,6 @@
 # Copyrighted source material — kept local only, never published
 book-source/**/*.pdf
+book-source/**/audio/
 
 # OS / editor junk
 .DS_Store
