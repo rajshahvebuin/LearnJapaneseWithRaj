@@ -1,0 +1,6 @@
+# Copyrighted source material — kept local only, never published
+book-source/**/*.pdf
+
+# OS / editor junk
+.DS_Store
+Thumbs.db

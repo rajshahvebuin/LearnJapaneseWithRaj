@@ -1,0 +1,500 @@
+/* ==========================================================================
+   Shared "day" study pages (Sou-Matome style) — N1/N2, any module
+   Generic components (.bp-header, .bp-quiz, .bp-options, .bp-day-nav, …)
+   are reused across grammar/vocabulary/kanji/reading/listening day pages.
+   Module-specific sections (grammar's .bp-point, vocab's .vd-wordlist, …)
+   live in their own labeled part of this file.
+   ========================================================================== */
+
+.bp-header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+
+.bp-header .bp-week {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.bp-header h1 {
+  margin: 4px 0 14px;
+  font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+}
+
+.bp-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 24px;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 640px) {
+  .bp-meta-grid { grid-template-columns: 1fr; }
+}
+
+.bp-meta-grid dt {
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.bp-meta-grid dd {
+  margin: 0 0 8px;
+}
+
+.bp-meta-grid .bp-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.bp-meta-grid .bp-points span {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.bp-note {
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* ---------- section headers ---------- */
+
+.bp-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 40px 0 18px;
+  font-size: 1.15rem;
+}
+
+.bp-section-title .n {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* ---------- grammar point block ---------- */
+
+.bp-point {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  margin-bottom: 22px;
+}
+
+.bp-point-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.bp-point-head h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+
+.bp-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--bg);
+}
+
+.bp-badge.formal {
+  color: #8a5a00;
+  background: #fff2d9;
+  border-color: #f0d090;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bp-badge.formal { color: #ffd27a; background: #3a2e10; border-color: #6b5220; }
+}
+
+.bp-table-wrap { overflow-x: auto; margin-bottom: 16px; }
+
+table.bp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+table.bp-table th, table.bp-table td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.bp-table th {
+  background: var(--bg);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+table.bp-table .jp { font-weight: 600; }
+table.bp-table .added { color: var(--muted); font-style: italic; }
+
+.bp-formation-table td:first-child,
+.bp-formation-table th:first-child { white-space: nowrap; font-weight: 600; }
+
+.bp-examples-table td.jp { font-size: 1rem; }
+
+.bp-notes {
+  font-size: 0.9rem;
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0;
+}
+
+/* ---------- quiz / exercise ---------- */
+
+.bp-quiz {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+  margin-bottom: 18px;
+}
+
+.bp-quiz .q-label {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin-bottom: 8px;
+}
+
+.bp-quiz .q-jp { font-size: 1.08rem; font-weight: 600; margin: 0 0 8px; }
+
+.bp-quiz .q-translations {
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+.bp-quiz .q-translations div { margin-bottom: 2px; }
+
+table.bp-options {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+}
+
+table.bp-options th, table.bp-options td {
+  border: 1px solid var(--border);
+  padding: 7px 10px;
+  text-align: left;
+}
+
+table.bp-options th {
+  background: var(--bg);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+table.bp-options tr.correct td {
+  background: #eafaf0;
+}
+
+@media (prefers-color-scheme: dark) {
+  table.bp-options tr.correct td { background: #143b23; }
+}
+
+table.bp-options tr.correct td:first-child::after {
+  content: " ✅";
+}
+
+.bp-why {
+  font-size: 0.86rem;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 0;
+}
+
+.bp-why b { color: var(--accent); }
+
+/* sentence ordering */
+
+.bp-order-chain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 14px;
+  font-weight: 700;
+}
+
+.bp-order-chain span {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 0.95rem;
+}
+
+.bp-order-chain .arrow { color: var(--muted); font-weight: 400; }
+
+.bp-assembled {
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 0 10px;
+}
+
+/* ---------- confusion pairs ---------- */
+
+table.bp-confusion {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+table.bp-confusion th, table.bp-confusion td {
+  border: 1px solid var(--border);
+  padding: 9px 11px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.bp-confusion th {
+  background: var(--bg);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+table.bp-confusion td.form { font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+.bp-callout {
+  margin-top: 14px;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+}
+
+/* ---------- day nav (prev/next) ---------- */
+
+.bp-day-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0 56px;
+}
+
+.bp-day-nav a, .bp-day-nav span {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.bp-day-nav span { color: var(--muted); background: var(--bg); }
+.bp-day-nav a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- week/day hub (grammar overview page) ---------- */
+
+.week-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 56px;
+}
+
+.week-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+
+.week-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.week-head .week-num {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.week-head .week-title {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.day-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.day-chip {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.day-chip.ready {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+
+.day-chip.ready:hover { background: var(--accent); color: #fff; }
+
+.day-chip.soon {
+  color: var(--muted);
+  cursor: default;
+}
+
+/* ---------- vocabulary day pages (.vd- prefix) ---------- */
+
+.vd-warmup {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+  margin-bottom: 22px;
+}
+
+.vd-warmup .vd-warmup-label {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin-bottom: 10px;
+}
+
+.vd-warmup .vd-prompt { font-size: 1.02rem; margin: 0 0 10px; }
+
+.vd-warmup .vd-answer {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.vd-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 24px;
+}
+
+.vd-legend b { color: var(--text); }
+
+.vd-table-wrap { overflow-x: auto; margin-bottom: 24px; }
+
+table.vd-wordlist {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+table.vd-wordlist th, table.vd-wordlist td {
+  border: 1px solid var(--border);
+  padding: 9px 11px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.vd-wordlist th {
+  background: var(--bg);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+table.vd-wordlist td.jp {
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+table.vd-wordlist td.note {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+table.vd-wordlist tr:nth-child(even) td { background: var(--bg); }
