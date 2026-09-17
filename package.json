@@ -1,0 +1,21 @@
+{
+  "name": "learnjapanesewithraj",
+  "version": "1.0.0",
+  "description": "A simple, static JLPT study site — vocabulary, kanji, grammar, reading, and listening for N1 and N2 — built to work on phone, tablet, and laptop, and hosted for free on GitHub Pages.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajshahvebuin/LearnJapaneseWithRaj.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rajshahvebuin/LearnJapaneseWithRaj/issues"
+  },
+  "homepage": "https://github.com/rajshahvebuin/LearnJapaneseWithRaj#readme"
+}
