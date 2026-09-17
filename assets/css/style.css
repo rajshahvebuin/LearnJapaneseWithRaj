@@ -744,6 +744,52 @@ a { color: inherit; }
 
 td .romaji, .jp .romaji { margin-top: 3px; }
 
+/* ---------- word glossary tooltip (.wt) ----------
+   <span class="wt" data-romaji="" data-en="" data-hi="" data-gu="">word</span>
+   Hover (desktop) or tap (touch) to show romaji + EN/HI/GU meaning. See main.js. */
+
+.wt {
+  cursor: help;
+  border-bottom: 1px dotted var(--accent);
+}
+
+.wt-popup {
+  position: absolute;
+  z-index: 80;
+  max-width: 260px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  pointer-events: none;
+}
+
+.wt-popup.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.wt-popup .wt-romaji {
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.wt-popup div + div { margin-top: 2px; }
+
+.wt-popup b {
+  color: var(--accent);
+  margin-right: 4px;
+}
+
 .section-label {
   text-transform: uppercase;
   letter-spacing: 0.06em;
