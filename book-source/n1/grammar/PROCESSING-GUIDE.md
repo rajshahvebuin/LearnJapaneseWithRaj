@@ -9,7 +9,7 @@ The PDF is scanned/image-only (no text layer) — render pages to PNG (e.g. with
 ## 1. Unit location & verification
 
 - A "day" (1日目, 2日目, …) is the unit of work, not a page number. Locate the day's starting page via the table of contents, then read forward until the next 日目/実戦問題 heading begins — include every page in between, even if content or drill answers spill across a page break.
-- Verify against the printed page number visible in the scan itself. For this book: **PDF page index = printed page number + 1** (front-matter pages push the offset).
+- Verify against the printed page number visible in the scan itself. For this book: **PDF page index = printed page number + 2** (front-matter pages push the offset). This was re-verified during Week 8 processing by rendering a candidate page and reading the stamped printed-page number visible on the image itself (PDF page 128 showed stamp "126"), not assumed from an older, incorrect "+1" note — always cross-check the same way before trusting either offset on a new scan.
 - Drill answers for a day often print at the bottom of a *later* page — this book prints them at the bottom of the following day's second page. Fetch that page too and cite the confirmed answer rather than guessing.
 - 実戦問題 (day 7 test) answers may live in a separate answer booklet ([別冊]) not included in the uploaded PDF. If so, work out the answer using N1-level knowledge and flag transparently that it isn't from an official key.
 - 1日2ページ (2 printed pages per day), 7 days per week (days 1–6 = content, day 7 = 実戦問題 test), 8 weeks total.
