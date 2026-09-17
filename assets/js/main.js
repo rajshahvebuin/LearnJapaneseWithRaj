@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         location.href = new URL("../../login.html", CURRENT_SCRIPT_SRC).href;
       });
-      controls.insertBefore(logoutBtn, navToggleBtn || null);
+      controls.appendChild(logoutBtn);
     }
 
     if (navToggleBtn) controls.appendChild(navToggleBtn);
