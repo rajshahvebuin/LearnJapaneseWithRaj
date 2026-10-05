@@ -212,8 +212,8 @@ def load():
             b['status'] = 'audio-only'
             b['href'] = f"{b['level']}/{b['module']}/{b['slug']}/index.html"
         else:
-            b['status'] = 'soon'
             b['href'] = f"{b['level']}/{b['module']}/{b['slug']}/index.html"
+            b['status'] = 'ready' if is_complete(b['href']) else 'soon'
         b['units'] = count_units(b['href']) if b['status'] == 'ready' else 0
     # slug collisions inside one module folder
     seen = {}
@@ -225,6 +225,15 @@ def load():
     order = {m: i for i, m in enumerate(MODULE_ORDER)}
     books.sort(key=lambda b: (b['level'], order[b['module']], b['status'] != 'ready', b['title']))
     return books
+
+
+def is_complete(href):
+    """A hand-built course index with ready chips and no 'soon' chips left counts as ready."""
+    p = os.path.join(ROOT, href)
+    if not os.path.exists(p):
+        return False
+    t = open(p, encoding='utf-8').read()
+    return 'class="day-chip ready"' in t and 'class="day-chip soon"' not in t
 
 
 def count_units(href):
