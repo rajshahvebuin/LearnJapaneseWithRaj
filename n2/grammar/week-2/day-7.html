@@ -13,23 +13,29 @@
   <link rel="stylesheet" href="../../../assets/css/day-page.css" />
 </head>
 <body class="level-page n2">
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="container">
       <a class="brand" href="../../../index.html">
         <span class="brand-mark">日</span>
-        Learn Japanese with Raj
+        <span class="brand-text">Learn Japanese with Raj</span>
       </a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main">
         <a href="../../../index.html">Home</a>
-        <a href="../../../n1/index.html">JLPT N1</a>
-        <a href="../../index.html" class="active">JLPT N2</a>
+        <a href="../../../n1/index.html" data-level="n1">N1</a>
+        <a href="../../../n2/index.html" class="active" aria-current="page" data-level="n2">N2</a>
+        <a href="../../../n3/index.html" data-level="n3">N3</a>
+        <a href="../../../n4/index.html" data-level="n4">N4</a>
+        <a href="../../../n5/index.html" data-level="n5">N5</a>
+        <a href="../../../library.html">Library</a>
+        <a href="../../../about.html">About</a>
       </nav>
-      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="main">
     <p class="breadcrumb">
       <a href="../../../index.html">Home</a><span class="sep">/</span>
       <a href="../../index.html">JLPT N2</a><span class="sep">/</span>
@@ -562,7 +568,34 @@
 
   <footer class="site-footer">
     <div class="container">
-      Built by Raj · Hosted on GitHub Pages
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="../../../index.html"><span class="brand-mark">日</span><span class="brand-text">Learn Japanese with Raj</span></a>
+          <p>Self-paced JLPT study pages — grammar, vocabulary, kanji, reading and listening — explained in English, Hindi and Gujarati with romaji.</p>
+        </div>
+        <div>
+          <h4>Levels</h4>
+          <ul>
+            <li><a href="../../../n1/index.html">JLPT N1 · Advanced</a></li>
+            <li><a href="../../../n2/index.html">JLPT N2 · Upper-intermediate</a></li>
+            <li><a href="../../../n3/index.html">JLPT N3 · Intermediate</a></li>
+            <li><a href="../../../n4/index.html">JLPT N4 · Elementary</a></li>
+            <li><a href="../../../n5/index.html">JLPT N5 · Beginner</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="../../../index.html">Home</a></li>
+            <li><a href="../../../library.html">Book library</a></li>
+            <li><a href="../../../about.html">How to use this site</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Built by Raj · Hosted on GitHub Pages</span>
+        <span>Study notes based on published JLPT workbooks. The books themselves are not hosted here.</span>
+      </div>
     </div>
   </footer>
 

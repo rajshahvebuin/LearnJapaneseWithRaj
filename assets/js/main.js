@@ -100,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelector(".nav-links");
   if (navToggle && navLinks) {
     navToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
+      const open = navLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", String(open));
     });
     navLinks.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => navLinks.classList.remove("open"));

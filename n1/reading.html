@@ -13,23 +13,29 @@
   <link rel="stylesheet" href="../assets/css/day-page.css" />
 </head>
 <body class="level-page n1">
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="container">
       <a class="brand" href="../index.html">
         <span class="brand-mark">日</span>
-        Learn Japanese with Raj
+        <span class="brand-text">Learn Japanese with Raj</span>
       </a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main">
         <a href="../index.html">Home</a>
-        <a href="index.html" class="active">JLPT N1</a>
-        <a href="../n2/index.html">JLPT N2</a>
+        <a href="../n1/index.html" class="active" aria-current="page" data-level="n1">N1</a>
+        <a href="../n2/index.html" data-level="n2">N2</a>
+        <a href="../n3/index.html" data-level="n3">N3</a>
+        <a href="../n4/index.html" data-level="n4">N4</a>
+        <a href="../n5/index.html" data-level="n5">N5</a>
+        <a href="../library.html">Library</a>
+        <a href="../about.html">About</a>
       </nav>
-      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="main">
     <p class="breadcrumb">
       <a href="../index.html">Home</a><span class="sep">/</span>
       <a href="index.html">JLPT N1</a><span class="sep">/</span>
@@ -129,11 +135,69 @@
         </div>
       </div>
     </div>
+
+    <!-- catalog:books:start -->
+    <div class="section-title"><h2>All N1 reading books</h2><p>5 books · this course is one of them</p></div>
+    <div class="book-grid">
+      <a class="book-card lv-n1" href="../n1/reading/speed-master/index.html" data-level="n1" data-module="reading" data-status="ready" data-search="スピードマスター n1 読解 speed master n1 reading n1 reading">
+        <span class="bk-jp">スピードマスター N1 読解</span>
+        <span class="bk-en">Speed Master N1 Reading</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 22 units</span></span>
+      </a>
+      <a class="book-card lv-n1" href="../n1/reading/jitsuryoku-appu/index.html" data-level="n1" data-module="reading" data-status="ready" data-search="実力アップ！ n1 読む jitsuryoku appu n1 reading n1 reading">
+        <span class="bk-jp">実力アップ！ N1 読む</span>
+        <span class="bk-en">Jitsuryoku Appu N1 Reading</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 28 units</span></span>
+      </a>
+      <div class="book-card lv-n1" data-level="n1" data-module="reading" data-status="ready" data-search="日本語総まとめ n1 読解 nihongo sou-matome n1 reading n1 reading">
+        <span class="bk-jp">日本語総まとめ N1 読解 <span class="pill lvl">This course</span></span>
+        <span class="bk-en">Nihongo Sou-Matome N1 Reading</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 42 units</span></span>
+      </div>
+      <a class="book-card lv-n1" href="../n1/reading/shiken-ni-deru/index.html" data-level="n1" data-module="reading" data-status="ready" data-search="試験に出る n1・n2 読解 shiken ni deru n1–n2 reading n1 reading">
+        <span class="bk-jp">試験に出る N1・N2 読解</span>
+        <span class="bk-en">Shiken ni Deru N1–N2 Reading</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 42 units</span></span>
+      </a>
+      <a class="book-card lv-n1 is-soon" href="../n1/reading/shin-kanzen-master/index.html" data-level="n1" data-module="reading" data-status="soon" data-search="新完全マスター n1 読解 shin kanzen master n1 reading n1 reading">
+        <span class="bk-jp">新完全マスター N1 読解</span>
+        <span class="bk-en">Shin Kanzen Master N1 Reading</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+    </div>
+    <!-- catalog:books:end -->
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      Built by Raj · Hosted on GitHub Pages
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="../index.html"><span class="brand-mark">日</span><span class="brand-text">Learn Japanese with Raj</span></a>
+          <p>Self-paced JLPT study pages — grammar, vocabulary, kanji, reading and listening — explained in English, Hindi and Gujarati with romaji.</p>
+        </div>
+        <div>
+          <h4>Levels</h4>
+          <ul>
+            <li><a href="../n1/index.html">JLPT N1 · Advanced</a></li>
+            <li><a href="../n2/index.html">JLPT N2 · Upper-intermediate</a></li>
+            <li><a href="../n3/index.html">JLPT N3 · Intermediate</a></li>
+            <li><a href="../n4/index.html">JLPT N4 · Elementary</a></li>
+            <li><a href="../n5/index.html">JLPT N5 · Beginner</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../library.html">Book library</a></li>
+            <li><a href="../about.html">How to use this site</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Built by Raj · Hosted on GitHub Pages</span>
+        <span>Study notes based on published JLPT workbooks. The books themselves are not hosted here.</span>
+      </div>
     </div>
   </footer>
 

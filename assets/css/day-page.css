@@ -641,3 +641,31 @@ table.kd-kanji-table td.note { font-size: 0.8rem; color: var(--muted); }
 .ld-track::before { content: "🎧"; }
 
 table.bp-options td.answer { font-weight: 700; color: var(--accent); }
+
+/* ==========================================================================
+   v2 additions — shared tokens from style.css, mobile fixes
+   ========================================================================== */
+
+/* Option/answer tables scroll inside their card on narrow screens instead of
+   pushing the whole page sideways. */
+@media (max-width: 760px) {
+  table.bp-options,
+  table.bp-confusion {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .bp-quiz, .bp-point { overflow-wrap: anywhere; }
+}
+
+table.bp-options tr.correct td,
+:root[data-theme="dark"] table.bp-options tr.correct td { background: var(--ok-soft); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) table.bp-options tr.correct td { background: var(--ok-soft); }
+}
+
+.bp-header h1, .bp-section-title { font-family: var(--font-display); }
+.week-block { transition: border-color 0.15s; }
+.week-block:hover { border-color: var(--border-strong); }
+.day-chip.soon[data-href] { cursor: default; }

@@ -1,7 +1,14 @@
-# Copyrighted source material — kept local only, never published
-book-source/**/*.pdf
-book-source/**/audio/
+# Copyrighted source material — kept local only, never published.
+# Everything under book-source/ is ignored except the docs (.md) and folder placeholders.
+book-source/**
+!book-source/**/
+!book-source/**/*.md
+!book-source/**/.gitkeep
 
 # OS / editor junk
 .DS_Store
 Thumbs.db
+
+# Python bytecode
+__pycache__/
+*.pyc

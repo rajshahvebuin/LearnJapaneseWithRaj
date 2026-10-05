@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page not found · Learn Japanese with Raj</title>
+  <meta name="robots" content="noindex" />
+  <script>
+    // Project sites live under /<repo>/ on github.io; user sites and local servers at /.
+    (function () {
+      var seg = location.pathname.split('/').filter(Boolean);
+      var base = /\.github\.io$/.test(location.hostname) && seg.length ? '/' + seg[0] + '/' : '/';
+      window.SITE_BASE = base;
+      document.write('<base href="' + base + '">');
+    })();
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <main class="container" id="main">
+    <section class="hero">
+      <div class="hero-art" aria-hidden="true" style="max-width:160px;margin:0 auto 24px"><span style="font-size:3.4rem">迷</span></div>
+      <h1>Page not found</h1>
+      <p>This page doesn't exist — it may not have been built yet, or the link has a typo.</p>
+      <p style="margin-top:22px"><a class="btn btn-primary" href="index.html">Go to the home page</a> <a class="btn" href="library.html">Browse the library</a></p>
+    </section>
+  </main>
+</body>
+</html>
