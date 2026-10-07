@@ -645,7 +645,7 @@ def build_placeholder(b):
 
     <div class="sample-note"><span>{'🎧' if b['status'] == 'audio-only' else '🛠️'}</span><div>{status_note}</div></div>
 
-    <div class="bp-table-wrap" style="max-width:560px">
+    <div class="bp-table-wrap">
       <table class="bp-table">
 {rows}
       </table>
