@@ -788,7 +788,8 @@ def refresh_existing(books, generated):
                 # books first: right under the breadcrumb, above the hand-built course
                 bc = re.search(r'<p class="breadcrumb">.*?</p>\n', new, re.S)
                 if bc:
-                    new = new[:bc.end()] + '\n' + blk + '\n' + new[bc.end():]
+                    rest = new[bc.end():].lstrip('\n')
+                    new = new[:bc.end()] + '\n' + blk + '\n' + rest
                 else:
                     new = new.replace('  </main>', '\n' + blk + '  </main>', 1)
         if new != s:
