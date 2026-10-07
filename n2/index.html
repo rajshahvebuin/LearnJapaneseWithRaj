@@ -5,11 +5,11 @@
   <script src="../assets/js/auth.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JLPT N2 · Learn Japanese with Raj</title>
-  <meta name="description" content="JLPT N2 (Upper-intermediate) study pages: vocabulary, kanji, grammar, reading and listening." />
+  <meta name="description" content="JLPT N2 (Upper-intermediate) study pages: every book, plus flashcards and quizzes." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23c8102e%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22>日</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=Shippori+Mincho:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body class="level-page n2">
@@ -27,11 +27,26 @@
         <a href="../n3/index.html" data-level="n3">N3</a>
         <a href="../n4/index.html" data-level="n4">N4</a>
         <a href="../n5/index.html" data-level="n5">N5</a>
+        <span class="nav-sep" aria-hidden="true"></span>
         <a href="../library.html">Library</a>
         <a href="../about.html">About</a>
       </nav>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
     </div>
+    <nav class="level-nav lv-n2" aria-label="JLPT N2 sections">
+      <div class="container">
+        <a class="lv-tag" href="../n2/index.html">N2</a>
+        <a class="ln active" aria-current="page" href="../n2/index.html">Overview</a>
+        <a class="ln" href="../n2/vocabulary.html">Vocabulary</a>
+        <a class="ln" href="../n2/kanji.html">Kanji</a>
+        <a class="ln" href="../n2/grammar.html">Grammar</a>
+        <a class="ln" href="../n2/reading.html">Reading</a>
+        <a class="ln" href="../n2/listening.html">Listening</a>
+        <a class="ln" href="../n2/mock-tests.html">Mock tests</a>
+        <a class="ln" href="../n2/multi-skill.html">All-in-one</a>
+        <a class="ln" href="../n2/textbooks.html">Textbooks</a>
+      </div>
+    </nav>
   </header>
 
   <main class="container" id="main">
@@ -43,22 +58,183 @@
     <section class="level-hero">
       <div class="lv-badge">N2</div>
       <div>
-        <span class="section-label">JLPT N2 · 中上級</span>
+        <span class="section-label">JLPT N2 · <span lang="ja">中上級</span></span>
         <h1>Upper-intermediate Japanese</h1>
         <p>Everyday and workplace Japanese across a wide range of topics — the level most jobs ask for.</p>
+        <div class="hero-stats"><span><b>27</b>books</span><span><b>4</b>ready</span><span><b>210</b>study pages</span><span><b>8</b>modules</span></div>
       </div>
     </section>
 
-    <div class="stats" style="margin-top:18px">
-      <div class="stat"><b>210</b><span>study pages</span></div>
-      <div class="stat"><b>4</b><span>complete courses</span></div>
-      <div class="stat"><b>27</b><span>books uploaded</span></div>
-      <div class="stat"><b>8</b><span>modules</span></div>
+    <div class="section-title" id="books"><h2>All N2 books<span class="count">27</span></h2><p>4 ready to study · 210 units</p></div>
+    <div class="chip-group book-filter" role="group" aria-label="Filter books by module" style="margin-bottom:14px"><button class="chip" type="button" data-book-filter="all" aria-pressed="true">All<span class="n">27</span></button><button class="chip" type="button" data-book-filter="vocabulary" aria-pressed="false">Vocabulary<span class="n">4</span></button><button class="chip" type="button" data-book-filter="kanji" aria-pressed="false">Kanji<span class="n">2</span></button><button class="chip" type="button" data-book-filter="grammar" aria-pressed="false">Grammar<span class="n">5</span></button><button class="chip" type="button" data-book-filter="reading" aria-pressed="false">Reading<span class="n">4</span></button><button class="chip" type="button" data-book-filter="listening" aria-pressed="false">Listening<span class="n">4</span></button><button class="chip" type="button" data-book-filter="mock-tests" aria-pressed="false">Mock tests<span class="n">4</span></button><button class="chip" type="button" data-book-filter="multi-skill" aria-pressed="false">All-in-one<span class="n">3</span></button><button class="chip" type="button" data-book-filter="textbooks" aria-pressed="false">Textbooks<span class="n">1</span></button></div>
+    <div class="book-grid" data-book-grid>
+      <a class="book-card lv-n2" href="../n2/vocabulary.html" data-level="n2" data-module="vocabulary" data-status="ready" data-search="日本語総まとめ n2 語彙 nihongo sou-matome n2 vocabulary n2 vocabulary">
+        <span class="bk-band"><span>Vocabulary</span><span class="bk-icon" lang="ja" aria-hidden="true">語</span></span>
+        <span class="bk-jp" lang="ja">日本語総まとめ N2 語彙</span>
+        <span class="bk-en">Nihongo Sou-Matome N2 Vocabulary</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 56 units</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/vocabulary/speed-master/index.html" data-level="n2" data-module="vocabulary" data-status="soon" data-search="スピードマスター n2 語彙 speed master n2 vocabulary n2 vocabulary">
+        <span class="bk-band"><span>Vocabulary</span><span class="bk-icon" lang="ja" aria-hidden="true">語</span></span>
+        <span class="bk-jp" lang="ja">スピードマスター N2 語彙</span>
+        <span class="bk-en">Speed Master N2 Vocabulary</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/vocabulary/drill-and-drill/index.html" data-level="n2" data-module="vocabulary" data-status="soon" data-search="ドリル&amp;ドリル n2 文字・語彙 drill &amp; drill n2 vocabulary n2 vocabulary">
+        <span class="bk-band"><span>Vocabulary</span><span class="bk-icon" lang="ja" aria-hidden="true">語</span></span>
+        <span class="bk-jp" lang="ja">ドリル&amp;ドリル N2 文字・語彙</span>
+        <span class="bk-en">Drill &amp; Drill N2 Vocabulary</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/vocabulary/shin-kanzen-master/index.html" data-level="n2" data-module="vocabulary" data-status="soon" data-search="新完全マスター n2 語彙 shin kanzen master n2 vocabulary n2 vocabulary">
+        <span class="bk-band"><span>Vocabulary</span><span class="bk-icon" lang="ja" aria-hidden="true">語</span></span>
+        <span class="bk-jp" lang="ja">新完全マスター N2 語彙</span>
+        <span class="bk-en">Shin Kanzen Master N2 Vocabulary</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2" href="../n2/kanji.html" data-level="n2" data-module="kanji" data-status="ready" data-search="日本語総まとめ n2 漢字 nihongo sou-matome n2 kanji n2 kanji">
+        <span class="bk-band"><span>Kanji</span><span class="bk-icon" lang="ja" aria-hidden="true">漢</span></span>
+        <span class="bk-jp" lang="ja">日本語総まとめ N2 漢字</span>
+        <span class="bk-en">Nihongo Sou-Matome N2 Kanji</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 56 units</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/kanji/shin-kanzen-master/index.html" data-level="n2" data-module="kanji" data-status="soon" data-search="新完全マスター n2 漢字 shin kanzen master n2 kanji n2 kanji">
+        <span class="bk-band"><span>Kanji</span><span class="bk-icon" lang="ja" aria-hidden="true">漢</span></span>
+        <span class="bk-jp" lang="ja">新完全マスター N2 漢字</span>
+        <span class="bk-en">Shin Kanzen Master N2 Kanji</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 54</span></span>
+      </a>
+      <a class="book-card lv-n2" href="../n2/grammar.html" data-level="n2" data-module="grammar" data-status="ready" data-search="日本語総まとめ n2 文法 nihongo sou-matome n2 grammar n2 grammar">
+        <span class="bk-band"><span>Grammar</span><span class="bk-icon" lang="ja" aria-hidden="true">文</span></span>
+        <span class="bk-jp" lang="ja">日本語総まとめ N2 文法</span>
+        <span class="bk-en">Nihongo Sou-Matome N2 Grammar</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 56 units</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/grammar/speed-master/index.html" data-level="n2" data-module="grammar" data-status="soon" data-search="スピードマスター n2 文法 speed master n2 grammar n2 grammar">
+        <span class="bk-band"><span>Grammar</span><span class="bk-icon" lang="ja" aria-hidden="true">文</span></span>
+        <span class="bk-jp" lang="ja">スピードマスター N2 文法</span>
+        <span class="bk-en">Speed Master N2 Grammar</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/grammar/drill-and-drill/index.html" data-level="n2" data-module="grammar" data-status="soon" data-search="ドリル&amp;ドリル n2 文法 drill &amp; drill n2 grammar n2 grammar">
+        <span class="bk-band"><span>Grammar</span><span class="bk-icon" lang="ja" aria-hidden="true">文</span></span>
+        <span class="bk-jp" lang="ja">ドリル&amp;ドリル N2 文法</span>
+        <span class="bk-en">Drill &amp; Drill N2 Grammar</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/grammar/shin-kanzen-master/index.html" data-level="n2" data-module="grammar" data-status="soon" data-search="新完全マスター n2 文法 shin kanzen master n2 grammar n2 grammar">
+        <span class="bk-band"><span>Grammar</span><span class="bk-icon" lang="ja" aria-hidden="true">文</span></span>
+        <span class="bk-jp" lang="ja">新完全マスター N2 文法</span>
+        <span class="bk-en">Shin Kanzen Master N2 Grammar</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/grammar/mimi-kara-oboeru/index.html" data-level="n2" data-module="grammar" data-status="soon" data-search="耳から覚える n2 文法 mimi kara oboeru n2 grammar n2 grammar">
+        <span class="bk-band"><span>Grammar</span><span class="bk-icon" lang="ja" aria-hidden="true">文</span></span>
+        <span class="bk-jp" lang="ja">耳から覚える N2 文法</span>
+        <span class="bk-en">Mimi kara Oboeru N2 Grammar</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 10</span></span>
+      </a>
+      <a class="book-card lv-n2" href="../n2/reading.html" data-level="n2" data-module="reading" data-status="ready" data-search="日本語総まとめ n2 読解 nihongo sou-matome n2 reading n2 reading">
+        <span class="bk-band"><span>Reading</span><span class="bk-icon" lang="ja" aria-hidden="true">読</span></span>
+        <span class="bk-jp" lang="ja">日本語総まとめ N2 読解</span>
+        <span class="bk-en">Nihongo Sou-Matome N2 Reading</span>
+        <span class="bk-meta"><span class="pill ready">✓ Ready · 42 units</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/reading/speed-master/index.html" data-level="n2" data-module="reading" data-status="soon" data-search="スピードマスター n2 読解 speed master n2 reading n2 reading">
+        <span class="bk-band"><span>Reading</span><span class="bk-icon" lang="ja" aria-hidden="true">読</span></span>
+        <span class="bk-jp" lang="ja">スピードマスター N2 読解</span>
+        <span class="bk-en">Speed Master N2 Reading</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/reading/jitsuryoku-appu/index.html" data-level="n2" data-module="reading" data-status="soon" data-search="実力アップ！ n2 読む jitsuryoku appu n2 reading n2 reading">
+        <span class="bk-band"><span>Reading</span><span class="bk-icon" lang="ja" aria-hidden="true">読</span></span>
+        <span class="bk-jp" lang="ja">実力アップ！ N2 読む</span>
+        <span class="bk-en">Jitsuryoku Appu N2 Reading</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/reading/shin-kanzen-master/index.html" data-level="n2" data-module="reading" data-status="soon" data-search="新完全マスター n2 読解 shin kanzen master n2 reading n2 reading">
+        <span class="bk-band"><span>Reading</span><span class="bk-icon" lang="ja" aria-hidden="true">読</span></span>
+        <span class="bk-jp" lang="ja">新完全マスター N2 読解</span>
+        <span class="bk-en">Shin Kanzen Master N2 Reading</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/listening/speed-master/index.html" data-level="n2" data-module="listening" data-status="soon" data-search="スピードマスター n2 聴解 speed master n2 listening n2 listening">
+        <span class="bk-band"><span>Listening</span><span class="bk-icon" lang="ja" aria-hidden="true">聴</span></span>
+        <span class="bk-jp" lang="ja">スピードマスター N2 聴解</span>
+        <span class="bk-en">Speed Master N2 Listening</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 156</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/listening/shin-kanzen-master/index.html" data-level="n2" data-module="listening" data-status="soon" data-search="新完全マスター n2 聴解 shin kanzen master n2 listening n2 listening">
+        <span class="bk-band"><span>Listening</span><span class="bk-icon" lang="ja" aria-hidden="true">聴</span></span>
+        <span class="bk-jp" lang="ja">新完全マスター N2 聴解</span>
+        <span class="bk-en">Shin Kanzen Master N2 Listening</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 163</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/listening/sou-matome/index.html" data-level="n2" data-module="listening" data-status="soon" data-search="日本語総まとめ n2 聴解 nihongo sou-matome n2 listening n2 listening">
+        <span class="bk-band"><span>Listening</span><span class="bk-icon" lang="ja" aria-hidden="true">聴</span></span>
+        <span class="bk-jp" lang="ja">日本語総まとめ N2 聴解</span>
+        <span class="bk-en">Nihongo Sou-Matome N2 Listening</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 116</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/listening/mimi-kara-oboeru/index.html" data-level="n2" data-module="listening" data-status="soon" data-search="耳から覚える n2 聴解 mimi kara oboeru n2 listening n2 listening">
+        <span class="bk-band"><span>Listening</span><span class="bk-icon" lang="ja" aria-hidden="true">聴</span></span>
+        <span class="bk-jp" lang="ja">耳から覚える N2 聴解</span>
+        <span class="bk-en">Mimi kara Oboeru N2 Listening</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 93</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/mock-tests/anata-no-jakuten/index.html" data-level="n2" data-module="mock-tests" data-status="soon" data-search="あなたの弱点がわかる 2級模擬試験 anata no jakuten ga wakaru (old level 2) n2 mock tests">
+        <span class="bk-band"><span>Mock tests</span><span class="bk-icon" lang="ja" aria-hidden="true">模</span></span>
+        <span class="bk-jp" lang="ja">あなたの弱点がわかる 2級模擬試験</span>
+        <span class="bk-en">Anata no Jakuten ga Wakaru (old Level 2)</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 79</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/mock-tests/super-moshi/index.html" data-level="n2" data-module="mock-tests" data-status="soon" data-search="スーパー模試 n2 super moshi n2 n2 mock tests">
+        <span class="bk-band"><span>Mock tests</span><span class="bk-icon" lang="ja" aria-hidden="true">模</span></span>
+        <span class="bk-jp" lang="ja">スーパー模試 N2</span>
+        <span class="bk-en">Super Moshi N2</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/mock-tests/yosou-mondaishuu/index.html" data-level="n2" data-module="mock-tests" data-status="soon" data-search="予想問題集 n2 yosou mondaishuu n2 n2 mock tests">
+        <span class="bk-band"><span>Mock tests</span><span class="bk-icon" lang="ja" aria-hidden="true">模</span></span>
+        <span class="bk-jp" lang="ja">予想問題集 N2</span>
+        <span class="bk-en">Yosou Mondaishuu N2</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 56</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/mock-tests/kanzen-moshi/index.html" data-level="n2" data-module="mock-tests" data-status="soon" data-search="完全模試 n2 kanzen moshi n2 n2 mock tests">
+        <span class="bk-band"><span>Mock tests</span><span class="bk-icon" lang="ja" aria-hidden="true">模</span></span>
+        <span class="bk-jp" lang="ja">完全模試 N2</span>
+        <span class="bk-en">Kanzen Moshi N2</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 129</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/multi-skill/drill-and-drill/index.html" data-level="n2" data-module="multi-skill" data-status="soon" data-search="ドリル&amp;ドリル n2 聴解・読解 drill &amp; drill n2 listening &amp; reading n2 all-in-one">
+        <span class="bk-band"><span>All-in-one</span><span class="bk-icon" lang="ja" aria-hidden="true">総</span></span>
+        <span class="bk-jp" lang="ja">ドリル&amp;ドリル N2 聴解・読解</span>
+        <span class="bk-en">Drill &amp; Drill N2 Listening &amp; Reading</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 156</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/multi-skill/pattern-betsu-tettei-drill/index.html" data-level="n2" data-module="multi-skill" data-status="soon" data-search="パターン別徹底ドリル n2 pattern-betsu tettei drill n2 n2 all-in-one">
+        <span class="bk-band"><span>All-in-one</span><span class="bk-icon" lang="ja" aria-hidden="true">総</span></span>
+        <span class="bk-jp" lang="ja">パターン別徹底ドリル N2</span>
+        <span class="bk-en">Pattern-betsu Tettei Drill N2</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 89</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/multi-skill/goukaku-dekiru/index.html" data-level="n2" data-module="multi-skill" data-status="soon" data-search="合格できる n2 goukaku dekiru n2 n2 all-in-one">
+        <span class="bk-band"><span>All-in-one</span><span class="bk-icon" lang="ja" aria-hidden="true">総</span></span>
+        <span class="bk-jp" lang="ja">合格できる N2</span>
+        <span class="bk-en">Goukaku Dekiru N2</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 113</span></span>
+      </a>
+      <a class="book-card lv-n2 is-soon" href="../n2/textbooks/bunka-chukyu-nihongo/index.html" data-level="n2" data-module="textbooks" data-status="soon" data-search="文化中級日本語 1 bunka chuukyuu nihongo 1 n2 textbooks">
+        <span class="bk-band"><span>Textbooks</span><span class="bk-icon" lang="ja" aria-hidden="true">本</span></span>
+        <span class="bk-jp" lang="ja">文化中級日本語 1</span>
+        <span class="bk-en">Bunka Chuukyuu Nihongo 1</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
     </div>
 
-    <div class="section-title"><h2>Modules</h2><p>Pick a skill to see every book for it.</p></div>
+    <div class="section-title" id="modules"><h2>Modules</h2><p>Each module page lists its books and how they fit together.</p></div>
     <div class="module-grid">
-      <a class="module-card" href="../n2/vocabulary.html">
+      <a class="module-card" href="../n2/vocabulary.html" data-module="vocabulary">
         <span class="icon">語</span>
         <div>
           <h3>Vocabulary <span style="color:var(--muted);font-weight:500;font-size:.85em">語彙</span></h3>
@@ -66,7 +242,7 @@
           <div class="meta"><span class="pill ready">✓ 1 of 4 books ready</span> <span class="pill soon">56 units</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n2/kanji.html">
+      <a class="module-card" href="../n2/kanji.html" data-module="kanji">
         <span class="icon">漢</span>
         <div>
           <h3>Kanji <span style="color:var(--muted);font-weight:500;font-size:.85em">漢字</span></h3>
@@ -74,7 +250,7 @@
           <div class="meta"><span class="pill ready">✓ 1 of 2 books ready</span> <span class="pill soon">56 units</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n2/grammar.html">
+      <a class="module-card" href="../n2/grammar.html" data-module="grammar">
         <span class="icon">文</span>
         <div>
           <h3>Grammar <span style="color:var(--muted);font-weight:500;font-size:.85em">文法</span></h3>
@@ -82,7 +258,7 @@
           <div class="meta"><span class="pill ready">✓ 1 of 5 books ready</span> <span class="pill soon">56 units</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n2/reading.html">
+      <a class="module-card" href="../n2/reading.html" data-module="reading">
         <span class="icon">読</span>
         <div>
           <h3>Reading <span style="color:var(--muted);font-weight:500;font-size:.85em">読解</span></h3>
@@ -90,7 +266,7 @@
           <div class="meta"><span class="pill ready">✓ 1 of 4 books ready</span> <span class="pill soon">42 units</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n2/listening.html">
+      <a class="module-card" href="../n2/listening.html" data-module="listening">
         <span class="icon">聴</span>
         <div>
           <h3>Listening <span style="color:var(--muted);font-weight:500;font-size:.85em">聴解</span></h3>
@@ -98,7 +274,7 @@
           <div class="meta"><span class="pill soon">4 books · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n2/mock-tests.html">
+      <a class="module-card" href="../n2/mock-tests.html" data-module="mock-tests">
         <span class="icon">模</span>
         <div>
           <h3>Mock tests <span style="color:var(--muted);font-weight:500;font-size:.85em">模擬試験</span></h3>
@@ -106,7 +282,7 @@
           <div class="meta"><span class="pill soon">4 books · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n2/multi-skill.html">
+      <a class="module-card" href="../n2/multi-skill.html" data-module="multi-skill">
         <span class="icon">総</span>
         <div>
           <h3>All-in-one <span style="color:var(--muted);font-weight:500;font-size:.85em">総合</span></h3>
@@ -114,37 +290,13 @@
           <div class="meta"><span class="pill soon">3 books · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n2/textbooks.html">
+      <a class="module-card" href="../n2/textbooks.html" data-module="textbooks">
         <span class="icon">本</span>
         <div>
           <h3>Textbooks <span style="color:var(--muted);font-weight:500;font-size:.85em">教科書</span></h3>
           <p>General course books for building foundations.</p>
           <div class="meta"><span class="pill soon">1 book · coming soon</span></div>
         </div>
-      </a>
-    </div>
-
-    <div class="section-title"><h2>Ready to study</h2></div>
-    <div class="book-grid">
-      <a class="book-card lv-n2" href="../n2/vocabulary.html" data-level="n2" data-module="vocabulary" data-status="ready" data-search="日本語総まとめ n2 語彙 nihongo sou-matome n2 vocabulary n2 vocabulary">
-        <span class="bk-jp">日本語総まとめ N2 語彙</span>
-        <span class="bk-en">Nihongo Sou-Matome N2 Vocabulary</span>
-        <span class="bk-meta"><span class="pill ready">✓ Ready · 56 units</span></span>
-      </a>
-      <a class="book-card lv-n2" href="../n2/kanji.html" data-level="n2" data-module="kanji" data-status="ready" data-search="日本語総まとめ n2 漢字 nihongo sou-matome n2 kanji n2 kanji">
-        <span class="bk-jp">日本語総まとめ N2 漢字</span>
-        <span class="bk-en">Nihongo Sou-Matome N2 Kanji</span>
-        <span class="bk-meta"><span class="pill ready">✓ Ready · 56 units</span></span>
-      </a>
-      <a class="book-card lv-n2" href="../n2/grammar.html" data-level="n2" data-module="grammar" data-status="ready" data-search="日本語総まとめ n2 文法 nihongo sou-matome n2 grammar n2 grammar">
-        <span class="bk-jp">日本語総まとめ N2 文法</span>
-        <span class="bk-en">Nihongo Sou-Matome N2 Grammar</span>
-        <span class="bk-meta"><span class="pill ready">✓ Ready · 56 units</span></span>
-      </a>
-      <a class="book-card lv-n2" href="../n2/reading.html" data-level="n2" data-module="reading" data-status="ready" data-search="日本語総まとめ n2 読解 nihongo sou-matome n2 reading n2 reading">
-        <span class="bk-jp">日本語総まとめ N2 読解</span>
-        <span class="bk-en">Nihongo Sou-Matome N2 Reading</span>
-        <span class="bk-meta"><span class="pill ready">✓ Ready · 42 units</span></span>
       </a>
     </div>
   </main>
@@ -154,7 +306,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a class="brand" href="../index.html"><span class="brand-mark">日</span><span class="brand-text">Learn Japanese with Raj</span></a>
-          <p>Self-paced JLPT study pages — grammar, vocabulary, kanji, reading and listening — explained in English, Hindi and Gujarati with romaji.</p>
+          <p>Self-paced JLPT study pages for grammar, vocabulary, kanji, reading and listening, explained in English, Hindi and Gujarati with romaji.</p>
         </div>
         <div>
           <h4>Levels</h4>
@@ -164,6 +316,14 @@
             <li><a href="../n3/index.html">JLPT N3 · Intermediate</a></li>
             <li><a href="../n4/index.html">JLPT N4 · Elementary</a></li>
             <li><a href="../n5/index.html">JLPT N5 · Beginner</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Study tools</h4>
+          <ul>
+            <li><a href="../n1/vocab-cards.html">N1 vocabulary flashcards</a></li>
+            <li><a href="../n1/kanji-cards.html">N1 kanji flashcards</a></li>
+            <li><a href="../n1/quiz.html">N1 practice quiz</a></li>
           </ul>
         </div>
         <div>

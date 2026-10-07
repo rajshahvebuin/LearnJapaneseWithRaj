@@ -247,3 +247,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// ---------- book grid module filter (level pages) ----------
+// <div class="book-filter"><button data-book-filter="all|<module>"></div> + <div data-book-grid>
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.querySelector("[data-book-grid]");
+  const chips = document.querySelectorAll("[data-book-filter]");
+  if (!grid || !chips.length) return;
+  const apply = (mod) => {
+    chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.bookFilter === mod)));
+    grid.querySelectorAll(".book-card").forEach((card) => {
+      card.hidden = mod !== "all" && card.dataset.module !== mod;
+    });
+  };
+  chips.forEach((c) => c.addEventListener("click", () => apply(c.dataset.bookFilter)));
+});

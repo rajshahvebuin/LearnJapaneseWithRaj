@@ -7,13 +7,16 @@ The site is plain HTML, CSS and JavaScript. There is no build step to serve it: 
 ## Site structure
 
 ```
-index.html                     Home: levels, progress, complete courses
+index.html                     Home: levels, progress, N1 study tools, complete courses
 library.html                   Every uploaded book, searchable, with its status
 about.html                     How the site and its study pages work
 404.html, .nojekyll            GitHub Pages support files
 
 n1/ … n5/
-  index.html                   Level overview with module cards
+  index.html                   Level page: every book first (filter by module), then study tools and modules
+  vocab-cards.html             N1 only: vocabulary flashcards
+  kanji-cards.html             N1 only: kanji flashcards
+  quiz.html                    N1 only: practice quiz
   vocabulary.html  kanji.html  grammar.html  reading.html  listening.html
   mock-tests.html  multi-skill.html  textbooks.html   (where the level has those books)
   <module>/week-N/day-D.html   Sou-Matome course pages (N1, N2)
@@ -22,14 +25,21 @@ n1/ … n5/
 
 assets/css/style.css           Design tokens, layout, navigation, shared components
 assets/css/day-page.css        Study-page components (.bp-*, day chips, tables)
+assets/css/tools.css           Flashcard and quiz components
+assets/js/flashcards.js        Flashcard app (vocab + kanji pages)
+assets/js/quiz.js              Quiz app
+assets/data/n1/                Flashcard and quiz data (vocab/, kanji/, quiz/), generated
 assets/js/main.js              Theme toggle, logout, mobile menu, tooltips
 assets/js/library.js           Library search and filters
 assets/js/auth.js, login.js    Simple client-side sign-in gate (not real security)
 
 tools/build_site.py            Generator for the structural pages (see below)
+tools/extract_study_data.py    Builds assets/data/n1/ from the N1 study pages
 tools/catalog.json             Book catalog the generator reads
 book-source/                   Local source books and processing guides; only .md files are committed
 ```
+
+Every page shares one skeleton: a header with the level switcher, a level bar inside a level (overview, every module, and the study tools), the page content, and a footer. The generator writes this skeleton into every page.
 
 Each level has its own accent colour: N1 red, N2 indigo, N3 green, N4 ochre, N5 purple. Dark mode follows the system setting, and the 🌙 button overrides it.
 
@@ -38,7 +48,8 @@ Each level has its own accent colour: N1 red, N2 indigo, N3 green, N4 ochre, N5 
 1. Put the book under `book-source/<level>/<module>/<Book_Name>/` (see `book-source/README.md`).
 2. Run `python tools/build_site.py --scan`. The book appears in the library, its module hub and its level page, and gets a placeholder page at `<level>/<module>/<slug>/index.html`.
 3. Build the course pages into that same folder, replacing the placeholder `index.html` with the book's contents page.
-4. Add the book to the `BUILT` table in `tools/build_site.py`, then run `python tools/build_site.py` again. The status changes to "Ready" everywhere.
+4. Run `python tools/build_site.py` again. A book whose contents page has no grey "soon" chips left is marked "Ready" everywhere automatically. Books outside a `<level>/<module>/<slug>/` folder still go in the `BUILT` table.
+5. For N1, run `python tools/extract_study_data.py` so the new words, kanji and exercises reach the flashcards and quiz, then run `python tools/build_site.py` once more to refresh the card counts.
 
 The generator rewrites only the structural pages, plus the shared header and footer of every other page. Study-page content is never touched. You can run it any number of times: when nothing has changed, it changes nothing. `--scan` needs the local `book-source/` files. Without `--scan`, it uses `tools/catalog.json`, so it works on any machine.
 

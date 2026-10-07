@@ -122,6 +122,31 @@ HANDBUILT_HUBS = {'n1/vocabulary.html', 'n1/kanji.html', 'n1/grammar.html', 'n1/
 
 esc = html.escape
 
+FONTS_URL = ('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800'
+             '&family=Noto+Sans+JP:wght@400;500;600;700&family=Shippori+Mincho:wght@600;700;800&display=swap')
+
+# study tools per level: (file, short label, icon, title, blurb, data kind)
+TOOLS = {
+    'n1': [
+        ('vocab-cards.html', 'Vocab cards', '語', 'Vocabulary flashcards', 'Every word from the N1 vocabulary books as flip cards, with romaji and EN/HI/GU meanings.', 'vocab'),
+        ('kanji-cards.html', 'Kanji cards', '漢', 'Kanji flashcards', 'N1 kanji with their compound words and readings, plus reading cards from Shin Kanzen Master.', 'kanji'),
+        ('quiz.html', 'Quiz', '問', 'Practice quiz', 'Random questions from every N1 grammar, vocabulary and kanji exercise, checked against the book keys.', 'quiz'),
+    ],
+}
+LEVEL_MODS = {}  # filled in main(): level -> modules that have books
+
+
+def tool_count(level, kind):
+    """Number of cards / questions in a level's study-tool data, or 0 if not generated yet."""
+    p = os.path.join(ROOT, 'assets', 'data', level, kind, 'index.json')
+    if not os.path.exists(p):
+        return 0
+    try:
+        d = json.load(open(p, encoding='utf-8'))
+    except ValueError:
+        return 0
+    return sum(x.get('count', 0) for x in d.get('decks', d.get('banks', [])))
+
 
 # ---------------------------------------------------------------- catalog
 
@@ -280,9 +305,9 @@ def header(relpath):
         return f'<a href="{d}{href}"{cls}{extra}>{label}</a>'
     links = [a('index.html', 'Home', 'home')]
     links += [a(f'{k}/index.html', v['name'], k, f' data-level="{k}"') for k, v in LEVELS.items()]
-    links += [a('library.html', 'Library', 'library'), a('about.html', 'About', 'about')]
+    links += ['<span class="nav-sep" aria-hidden="true"></span>', a('library.html', 'Library', 'library'), a('about.html', 'About', 'about')]
     nav = '\n        '.join(links)
-    return f'''<header class="site-header">
+    return f"""<header class="site-header">
     <div class="container">
       <a class="brand" href="{d}index.html">
         <span class="brand-mark">日</span>
@@ -292,24 +317,59 @@ def header(relpath):
         {nav}
       </nav>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-    </div>
-  </header>'''
+    </div>{level_nav(relpath)}
+  </header>"""
+
+
+def level_nav(relpath):
+    """Second header row inside a level: overview, every module hub, then the study tools."""
+    parts = relpath.replace('\\', '/').split('/')
+    level = parts[0]
+    if level not in LEVELS or len(parts) < 2:
+        return ''
+    d = depth_prefix(relpath)
+    here = parts[1]
+    cur = 'overview' if here == 'index.html' else (here[:-5] if here.endswith('.html') else here)
+    def ln(href, label, key, cls='ln'):
+        on = ' active" aria-current="page' if key == cur else ''
+        return f'<a class="{cls}{on}" href="{d}{level}/{href}">{label}</a>'
+    items = [f'<a class="lv-tag" href="{d}{level}/index.html">{LEVELS[level]["name"]}</a>', ln('index.html', 'Overview', 'overview')]
+    items += [ln(f'{m}.html', MODULES[m]['name'], m) for m in LEVEL_MODS.get(level, CORE)]
+    tools = TOOLS.get(level, [])
+    if tools:
+        items.append('<span class="ln-sep" aria-hidden="true"></span>')
+        items += [ln(f, label, f[:-5], 'ln tool') for f, label, *_ in tools]
+    row = '\n        '.join(items)
+    return f"""
+    <nav class="level-nav lv-{level}" aria-label="JLPT {LEVELS[level]["name"]} sections">
+      <div class="container">
+        {row}
+      </div>
+    </nav>"""
 
 
 def footer(relpath):
     d = depth_prefix(relpath)
     lv = '\n            '.join(f'<li><a href="{d}{k}/index.html">JLPT {v["name"]} · {v["en"]}</a></li>' for k, v in LEVELS.items())
-    return f'''<footer class="site-footer">
+    tl = '\n            '.join(f'<li><a href="{d}{lvl}/{f}">{LEVELS[lvl]["name"]} {title.lower()}</a></li>'
+                             for lvl, ts in TOOLS.items() for f, _l, _i, title, *_ in ts)
+    return f"""<footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a class="brand" href="{d}index.html"><span class="brand-mark">日</span><span class="brand-text">Learn Japanese with Raj</span></a>
-          <p>Self-paced JLPT study pages — grammar, vocabulary, kanji, reading and listening — explained in English, Hindi and Gujarati with romaji.</p>
+          <p>Self-paced JLPT study pages for grammar, vocabulary, kanji, reading and listening, explained in English, Hindi and Gujarati with romaji.</p>
         </div>
         <div>
           <h4>Levels</h4>
           <ul>
             {lv}
+          </ul>
+        </div>
+        <div>
+          <h4>Study tools</h4>
+          <ul>
+            {tl}
           </ul>
         </div>
         <div>
@@ -326,7 +386,7 @@ def footer(relpath):
         <span>Study notes based on published JLPT workbooks. The books themselves are not hosted here.</span>
       </div>
     </div>
-  </footer>'''
+  </footer>"""
 
 
 def page(relpath, title, body, desc='', body_class='', extra_css=(), extra_js=(), auth=True):
@@ -345,7 +405,7 @@ def page(relpath, title, body, desc='', body_class='', extra_css=(), extra_js=()
   <link rel="icon" href="{FAVICON}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />{css}
+  <link href="{FONTS_URL}" rel="stylesheet" />{css}
 </head>
 <body{bc}>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -393,20 +453,22 @@ def pill(b):
 
 def book_card(b, relpath, show_level=False, current_href=None):
     d = depth_prefix(relpath)
+    m = MODULES[b['module']]
     meta = [pill(b)]
     if show_level:
-        meta.insert(0, f'<span class="pill lvl">{LEVELS[b["level"]]["name"]} · {MODULES[b["module"]]["name"]}</span>')
+        meta.insert(0, f'<span class="pill lvl">{LEVELS[b["level"]]["name"]}</span>')
     if b.get('audio_tracks'):
-        meta.append(f'<span class="pill soon">🎧 {b["audio_tracks"]} tracks</span>')
+        meta.append(f'<span class="pill soon">🎧 {b["audio_tracks"]}</span>')
     soon = '' if b['status'] == 'ready' else ' is-soon'
     here = b['href'] == current_href
     tag = 'div' if here else 'a'
     href = '' if here else f' href="{d}{b["href"]}"'
     label = ' <span class="pill lvl">This course</span>' if here else ''
-    search = esc(f'{b["title"]} {b["title_en"]} {LEVELS[b["level"]]["name"]} {MODULES[b["module"]]["name"]}'.lower())
+    search = esc(f'{b["title"]} {b["title_en"]} {LEVELS[b["level"]]["name"]} {m["name"]}'.lower())
     return (f'      <{tag} class="book-card lv-{b["level"]}{soon}"{href} data-level="{b["level"]}" data-module="{b["module"]}" '
             f'data-status="{b["status"]}" data-search="{search}">\n'
-            f'        <span class="bk-jp">{esc(b["title"])}{label}</span>\n'
+            f'        <span class="bk-band"><span>{m["name"]}</span><span class="bk-icon" lang="ja" aria-hidden="true">{m["icon"]}</span></span>\n'
+            f'        <span class="bk-jp" lang="ja">{esc(b["title"])}{label}</span>\n'
             f'        <span class="bk-en">{esc(b["title_en"])}</span>\n'
             f'        <span class="bk-meta">{" ".join(meta)}</span>\n'
             f'      </{tag}>')
@@ -423,10 +485,36 @@ def module_card(level, mod, books, relpath):
         meta = f'<span class="pill ready">✓ {len(ready)} of {len(books)} books ready</span>' + (f' <span class="pill soon">{units} units</span>' if units else '')
     else:
         meta = f'<span class="pill soon">{len(books)} book{"s" if len(books) != 1 else ""} · coming soon</span>'
-    return (f'      <a class="module-card" href="{d}{level}/{mod}.html">\n'
+    return (f'      <a class="module-card" href="{d}{level}/{mod}.html" data-module="{mod}">\n'
             f'        <span class="icon">{m["icon"]}</span>\n'
             f'        <div>\n          <h3>{m["name"]} <span style="color:var(--muted);font-weight:500;font-size:.85em">{m["jp"]}</span></h3>\n'
             f'          <p>{m["desc"]}</p>\n          <div class="meta">{meta}</div>\n        </div>\n      </a>')
+
+
+def tool_cards(level, relpath):
+    d = depth_prefix(relpath)
+    out = []
+    for f, _label, icon, title, blurb, kind in TOOLS.get(level, []):
+        n = tool_count(level, kind)
+        unit = 'questions' if kind == 'quiz' else 'cards'
+        meta = f'{n:,} {unit} →' if n else 'Open →'
+        out.append(f"""      <a class="tool-card lv-{level}" href="{d}{level}/{f}">
+        <span class="tool-icon" lang="ja" aria-hidden="true">{icon}</span>
+        <h3>{title}</h3>
+        <p>{blurb}</p>
+        <span class="tool-meta">{meta}</span>
+      </a>""")
+    return '\n'.join(out)
+
+
+def book_filter_chips(books):
+    counts = {}
+    for b in books:
+        counts[b['module']] = counts.get(b['module'], 0) + 1
+    chips = [f'<button class="chip" type="button" data-book-filter="all" aria-pressed="true">All<span class="n">{len(books)}</span></button>']
+    chips += [f'<button class="chip" type="button" data-book-filter="{m}" aria-pressed="false">{MODULES[m]["name"]}<span class="n">{counts[m]}</span></button>'
+              for m in MODULE_ORDER if m in counts]
+    return ''.join(chips)
 
 
 def modules_for(level, books):
@@ -481,6 +569,11 @@ def build_home(books):
 {chr(10).join(cards)}
     </section>
 
+    <div class="section-title"><h2>N1 study tools</h2><p><a href="n1/index.html#tools">Open N1 →</a></p></div>
+    <div class="tool-grid">
+{tool_cards('n1', rel)}
+    </div>
+
     <div class="section-title"><h2>How every study page works</h2></div>
     <div class="steps">
       <div class="step"><h3>Learn the points</h3><p>Each grammar point or word comes with meaning, connection rules, formation tables and every example from the book.</p></div>
@@ -499,40 +592,76 @@ def build_home(books):
 def build_level(level, books):
     rel = f'{level}/index.html'
     v = LEVELS[level]
-    lb = [b for b in books if b['level'] == level]
+    order = {m: i for i, m in enumerate(MODULE_ORDER)}
+    lb = sorted([b for b in books if b['level'] == level],
+                key=lambda b: (order[b['module']], b['status'] != 'ready', b['title']))
     ready = [b for b in lb if b['status'] == 'ready']
     mods = modules_for(level, books)
     cards = '\n'.join(module_card(level, m, [b for b in lb if b['module'] == m], rel) for m in mods)
-    featured = '\n'.join(book_card(b, rel) for b in ready) or '      <p style="color:var(--muted)">No course is complete at this level yet. Every uploaded book is listed in the modules above and in the <a href="../library.html">library</a>.</p>'
-    body = f'''{crumbs(rel, [('Home', 'index.html'), (f'JLPT {v["name"]}', None)])}
+    grid = '\n'.join(book_card(b, rel) for b in lb)
+    units = sum(b['units'] for b in ready)
+    if lb:
+        books_html = f"""    <div class="section-title" id="books"><h2>All {v["name"]} books<span class="count">{len(lb)}</span></h2><p>{len(ready)} ready to study · {units:,} units</p></div>
+    <div class="chip-group book-filter" role="group" aria-label="Filter books by module" style="margin-bottom:14px">{book_filter_chips(lb)}</div>
+    <div class="book-grid" data-book-grid>
+{grid}
+    </div>"""
+    else:
+        books_html = f"""    <div class="section-title" id="books"><h2>All {v["name"]} books</h2></div>
+    <p style="color:var(--muted)">No book has been uploaded for this level yet. See the <a href="../library.html">library</a>.</p>"""
+    tools = tool_cards(level, rel)
+    tools_html = f"""
+
+    <div class="section-title" id="tools"><h2>Study tools</h2><p>Drill everything from the {v["name"]} books in one place.</p></div>
+    <div class="tool-grid">
+{tools}
+    </div>""" if tools else ''
+    body = f"""{crumbs(rel, [('Home', 'index.html'), (f'JLPT {v["name"]}', None)])}
 
     <section class="level-hero">
       <div class="lv-badge">{v["name"]}</div>
       <div>
-        <span class="section-label">JLPT {v["name"]} · {v["jp"]}</span>
+        <span class="section-label">JLPT {v["name"]} · <span lang="ja">{v["jp"]}</span></span>
         <h1>{v["en"]} Japanese</h1>
         <p>{v["blurb"]}</p>
+        <div class="hero-stats"><span><b>{len(lb)}</b>books</span><span><b>{len(ready)}</b>ready</span><span><b>{study_pages(level):,}</b>study pages</span><span><b>{len(mods)}</b>modules</span></div>
       </div>
     </section>
 
-    <div class="stats" style="margin-top:18px">
-      <div class="stat"><b>{study_pages(level)}</b><span>study pages</span></div>
-      <div class="stat"><b>{len(ready)}</b><span>complete courses</span></div>
-      <div class="stat"><b>{len(lb)}</b><span>books uploaded</span></div>
-      <div class="stat"><b>{len(mods)}</b><span>modules</span></div>
-    </div>
+{books_html}{tools_html}
 
-    <div class="section-title"><h2>Modules</h2><p>Pick a skill to see every book for it.</p></div>
+    <div class="section-title" id="modules"><h2>Modules</h2><p>Each module page lists its books and how they fit together.</p></div>
     <div class="module-grid">
 {cards}
+    </div>"""
+    write(rel, page(rel, f'JLPT {v["name"]} · Learn Japanese with Raj', body, body_class=f'level-page {level}',
+                    desc=f'JLPT {v["name"]} ({v["en"]}) study pages: every book, plus flashcards and quizzes.'))
+
+
+def build_tools(level):
+    """Shell pages for the level's study tools; the JS apps fill them from assets/data/<level>/."""
+    v = LEVELS[level]
+    built = []
+    for f, label, icon, title, blurb, kind in TOOLS.get(level, []):
+        rel = f'{level}/{f}'
+        d = depth_prefix(rel)
+        js = 'quiz.js' if kind == 'quiz' else 'flashcards.js'
+        body = f"""{crumbs(rel, [('Home', 'index.html'), (f'JLPT {v["name"]}', f'{level}/index.html'), (label, None)])}
+
+    <div class="page-head tool-head">
+      <span class="section-label">JLPT {v["name"]} · Study tool</span>
+      <h1>{title}</h1>
+      <p>{blurb}</p>
     </div>
 
-    <div class="section-title"><h2>Ready to study</h2></div>
-    <div class="book-grid">
-{featured}
-    </div>'''
-    write(rel, page(rel, f'JLPT {v["name"]} · Learn Japanese with Raj', body, body_class=f'level-page {level}',
-                    desc=f'JLPT {v["name"]} ({v["en"]}) study pages: vocabulary, kanji, grammar, reading and listening.'))
+    <div class="tool-app" data-tool="{kind}" data-level="{level}" data-src="{d}assets/data/{level}/{kind}/" data-site-root="{d}">
+      <p class="tool-loading">Loading…</p>
+      <noscript><p>This study tool needs JavaScript.</p></noscript>
+    </div>"""
+        write(rel, page(rel, f'{v["name"]} {title} · Learn Japanese with Raj', body, body_class=f'level-page {level} tool-page',
+                        extra_css=('tools.css',), extra_js=(js,), desc=blurb))
+        built.append(rel)
+    return built
 
 
 def build_module_hub(level, mod, books):
@@ -745,6 +874,8 @@ def refresh_chrome(rel, s):
     if 'class="skip-link"' not in s:
         s = re.sub(r'(<body[^>]*>)', r'\1\n  <a class="skip-link" href="#main">Skip to content</a>', s, count=1)
     s = re.sub(r'<main class="container">', '<main class="container" id="main">', s, count=1)
+    s = re.sub(r'<link href="https://fonts\.googleapis\.com/css2\?[^"]*" rel="stylesheet" />',
+               lambda m: f'<link href="{FONTS_URL}" rel="stylesheet" />', s, count=1)
     return s
 
 
@@ -756,10 +887,11 @@ def books_block(rel, level, mod, books):
     grid = '\n'.join(book_card(b, rel, current_href=rel) for b in mb)
     v, m = LEVELS[level], MODULES[mod]
     return f'''    {BLOCK_START}
-    <div class="section-title"><h2>All {v["name"]} {m["name"].lower()} books</h2><p>{len(mb)} books · this course is one of them</p></div>
+    <div class="section-title" style="margin-top:6px"><h2>All {v["name"]} {m["name"].lower()} books<span class="count">{len(mb)}</span></h2><p>The course marked “This course” continues below</p></div>
     <div class="book-grid">
 {grid}
     </div>
+    <hr class="hub-divider" />
     {BLOCK_END}
 '''
 
@@ -784,7 +916,12 @@ def refresh_existing(books, generated):
             new = re.sub(r'\s*' + re.escape(BLOCK_START) + r'.*?' + re.escape(BLOCK_END) + r'\n?', '\n', new, flags=re.S)
             blk = books_block(rel, level, mod, books)
             if blk:
-                new = new.replace('  </main>', '\n' + blk + '  </main>', 1)
+                # books first: right under the breadcrumb, above the hand-built course
+                bc = re.search(r'<p class="breadcrumb">.*?</p>\n', new, re.S)
+                if bc:
+                    new = new[:bc.end()] + '\n' + blk + '\n' + new[bc.end():]
+                else:
+                    new = new.replace('  </main>', '\n' + blk + '  </main>', 1)
         if new != s:
             open(f, 'w', encoding='utf-8', newline='\n').write(new)
             n += 1
@@ -797,11 +934,14 @@ def main():
     if '--scan' in sys.argv or not os.path.exists(CATALOG):
         scan()
     books = load()
+    for lv in LEVELS:
+        LEVEL_MODS[lv] = modules_for(lv, books)
     generated = {'index.html', 'library.html', 'about.html'}
     build_home(books); build_library(books); build_about(books); build_404()
     open(os.path.join(ROOT, '.nojekyll'), 'w').close()
     for level in LEVELS:
         build_level(level, books); generated.add(f'{level}/index.html')
+        generated.update(build_tools(level))
         for mod in modules_for(level, books):
             rel = f'{level}/{mod}.html'
             if rel not in HANDBUILT_HUBS:

@@ -5,11 +5,11 @@
   <script src="../assets/js/auth.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JLPT N4 · Learn Japanese with Raj</title>
-  <meta name="description" content="JLPT N4 (Elementary) study pages: vocabulary, kanji, grammar, reading and listening." />
+  <meta name="description" content="JLPT N4 (Elementary) study pages: every book, plus flashcards and quizzes." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23c8102e%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22>日</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=Shippori+Mincho:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body class="level-page n4">
@@ -27,11 +27,25 @@
         <a href="../n3/index.html" data-level="n3">N3</a>
         <a href="../n4/index.html" class="active" aria-current="page" data-level="n4">N4</a>
         <a href="../n5/index.html" data-level="n5">N5</a>
+        <span class="nav-sep" aria-hidden="true"></span>
         <a href="../library.html">Library</a>
         <a href="../about.html">About</a>
       </nav>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
     </div>
+    <nav class="level-nav lv-n4" aria-label="JLPT N4 sections">
+      <div class="container">
+        <a class="lv-tag" href="../n4/index.html">N4</a>
+        <a class="ln active" aria-current="page" href="../n4/index.html">Overview</a>
+        <a class="ln" href="../n4/vocabulary.html">Vocabulary</a>
+        <a class="ln" href="../n4/kanji.html">Kanji</a>
+        <a class="ln" href="../n4/grammar.html">Grammar</a>
+        <a class="ln" href="../n4/reading.html">Reading</a>
+        <a class="ln" href="../n4/listening.html">Listening</a>
+        <a class="ln" href="../n4/mock-tests.html">Mock tests</a>
+        <a class="ln" href="../n4/multi-skill.html">All-in-one</a>
+      </div>
+    </nav>
   </header>
 
   <main class="container" id="main">
@@ -43,22 +57,81 @@
     <section class="level-hero">
       <div class="lv-badge">N4</div>
       <div>
-        <span class="section-label">JLPT N4 · 初中級</span>
+        <span class="section-label">JLPT N4 · <span lang="ja">初中級</span></span>
         <h1>Elementary Japanese</h1>
         <p>Basic grammar and vocabulary for daily situations, read and heard at a slower pace.</p>
+        <div class="hero-stats"><span><b>10</b>books</span><span><b>0</b>ready</span><span><b>0</b>study pages</span><span><b>7</b>modules</span></div>
       </div>
     </section>
 
-    <div class="stats" style="margin-top:18px">
-      <div class="stat"><b>0</b><span>study pages</span></div>
-      <div class="stat"><b>0</b><span>complete courses</span></div>
-      <div class="stat"><b>10</b><span>books uploaded</span></div>
-      <div class="stat"><b>7</b><span>modules</span></div>
+    <div class="section-title" id="books"><h2>All N4 books<span class="count">10</span></h2><p>0 ready to study · 0 units</p></div>
+    <div class="chip-group book-filter" role="group" aria-label="Filter books by module" style="margin-bottom:14px"><button class="chip" type="button" data-book-filter="all" aria-pressed="true">All<span class="n">10</span></button><button class="chip" type="button" data-book-filter="vocabulary" aria-pressed="false">Vocabulary<span class="n">2</span></button><button class="chip" type="button" data-book-filter="kanji" aria-pressed="false">Kanji<span class="n">1</span></button><button class="chip" type="button" data-book-filter="grammar" aria-pressed="false">Grammar<span class="n">1</span></button><button class="chip" type="button" data-book-filter="reading" aria-pressed="false">Reading<span class="n">1</span></button><button class="chip" type="button" data-book-filter="mock-tests" aria-pressed="false">Mock tests<span class="n">3</span></button><button class="chip" type="button" data-book-filter="multi-skill" aria-pressed="false">All-in-one<span class="n">2</span></button></div>
+    <div class="book-grid" data-book-grid>
+      <a class="book-card lv-n4 is-soon" href="../n4/vocabulary/kirari-nihongo/index.html" data-level="n4" data-module="vocabulary" data-status="soon" data-search="きらり日本語 n4 語彙 kirari nihongo n4 vocabulary n4 vocabulary">
+        <span class="bk-band"><span>Vocabulary</span><span class="bk-icon" lang="ja" aria-hidden="true">語</span></span>
+        <span class="bk-jp" lang="ja">きらり日本語 N4 語彙</span>
+        <span class="bk-en">Kirari Nihongo N4 Vocabulary</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/vocabulary/nihongo-challenge/index.html" data-level="n4" data-module="vocabulary" data-status="soon" data-search="日本語チャレンジ n4 ことば nihongo challenge n4 vocabulary n4 vocabulary">
+        <span class="bk-band"><span>Vocabulary</span><span class="bk-icon" lang="ja" aria-hidden="true">語</span></span>
+        <span class="bk-jp" lang="ja">日本語チャレンジ N4 ことば</span>
+        <span class="bk-en">Nihongo Challenge N4 Vocabulary</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/kanji/nihongo-challenge/index.html" data-level="n4" data-module="kanji" data-status="soon" data-search="日本語チャレンジ n4・n5 漢字 nihongo challenge n4–n5 kanji n4 kanji">
+        <span class="bk-band"><span>Kanji</span><span class="bk-icon" lang="ja" aria-hidden="true">漢</span></span>
+        <span class="bk-jp" lang="ja">日本語チャレンジ N4・N5 漢字</span>
+        <span class="bk-en">Nihongo Challenge N4–N5 Kanji</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/grammar/mimi-kara-oboeru/index.html" data-level="n4" data-module="grammar" data-status="soon" data-search="耳から覚える n4 文法 mimi kara oboeru n4 grammar n4 grammar">
+        <span class="bk-band"><span>Grammar</span><span class="bk-icon" lang="ja" aria-hidden="true">文</span></span>
+        <span class="bk-jp" lang="ja">耳から覚える N4 文法</span>
+        <span class="bk-en">Mimi kara Oboeru N4 Grammar</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 11</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/reading/jitsuryoku-appu/index.html" data-level="n4" data-module="reading" data-status="soon" data-search="実力アップ！ n4 読む jitsuryoku appu n4 reading n4 reading">
+        <span class="bk-band"><span>Reading</span><span class="bk-icon" lang="ja" aria-hidden="true">読</span></span>
+        <span class="bk-jp" lang="ja">実力アップ！ N4 読む</span>
+        <span class="bk-en">Jitsuryoku Appu N4 Reading</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/mock-tests/super-moshi/index.html" data-level="n4" data-module="mock-tests" data-status="soon" data-search="スーパー模試 n4・n5 super moshi n4–n5 n4 mock tests">
+        <span class="bk-band"><span>Mock tests</span><span class="bk-icon" lang="ja" aria-hidden="true">模</span></span>
+        <span class="bk-jp" lang="ja">スーパー模試 N4・N5</span>
+        <span class="bk-en">Super Moshi N4–N5</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 120</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/mock-tests/official-guide-book/index.html" data-level="n4" data-module="mock-tests" data-status="soon" data-search="公式ガイドブック n4・n5 official guide book n4–n5 n4 mock tests">
+        <span class="bk-band"><span>Mock tests</span><span class="bk-icon" lang="ja" aria-hidden="true">模</span></span>
+        <span class="bk-jp" lang="ja">公式ガイドブック N4・N5</span>
+        <span class="bk-en">Official Guide Book N4–N5</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 26</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/mock-tests/official-workbook/index.html" data-level="n4" data-module="mock-tests" data-status="soon" data-search="公式問題集 n4 official workbook n4 n4 mock tests">
+        <span class="bk-band"><span>Mock tests</span><span class="bk-icon" lang="ja" aria-hidden="true">模</span></span>
+        <span class="bk-jp" lang="ja">公式問題集 N4</span>
+        <span class="bk-en">Official Workbook N4</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 39</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/multi-skill/goukaku-dekiru/index.html" data-level="n4" data-module="multi-skill" data-status="soon" data-search="合格できる n4・n5 goukaku dekiru n4–n5 n4 all-in-one">
+        <span class="bk-band"><span>All-in-one</span><span class="bk-icon" lang="ja" aria-hidden="true">総</span></span>
+        <span class="bk-jp" lang="ja">合格できる N4・N5</span>
+        <span class="bk-en">Goukaku Dekiru N4–N5</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span> <span class="pill soon">🎧 133</span></span>
+      </a>
+      <a class="book-card lv-n4 is-soon" href="../n4/multi-skill/nihongo-challenge/index.html" data-level="n4" data-module="multi-skill" data-status="soon" data-search="日本語チャレンジ n4 文法と読む nihongo challenge n4 grammar &amp; reading n4 all-in-one">
+        <span class="bk-band"><span>All-in-one</span><span class="bk-icon" lang="ja" aria-hidden="true">総</span></span>
+        <span class="bk-jp" lang="ja">日本語チャレンジ N4 文法と読む</span>
+        <span class="bk-en">Nihongo Challenge N4 Grammar &amp; Reading</span>
+        <span class="bk-meta"><span class="pill soon">Coming soon</span></span>
+      </a>
     </div>
 
-    <div class="section-title"><h2>Modules</h2><p>Pick a skill to see every book for it.</p></div>
+    <div class="section-title" id="modules"><h2>Modules</h2><p>Each module page lists its books and how they fit together.</p></div>
     <div class="module-grid">
-      <a class="module-card" href="../n4/vocabulary.html">
+      <a class="module-card" href="../n4/vocabulary.html" data-module="vocabulary">
         <span class="icon">語</span>
         <div>
           <h3>Vocabulary <span style="color:var(--muted);font-weight:500;font-size:.85em">語彙</span></h3>
@@ -66,7 +139,7 @@
           <div class="meta"><span class="pill soon">2 books · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n4/kanji.html">
+      <a class="module-card" href="../n4/kanji.html" data-module="kanji">
         <span class="icon">漢</span>
         <div>
           <h3>Kanji <span style="color:var(--muted);font-weight:500;font-size:.85em">漢字</span></h3>
@@ -74,7 +147,7 @@
           <div class="meta"><span class="pill soon">1 book · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n4/grammar.html">
+      <a class="module-card" href="../n4/grammar.html" data-module="grammar">
         <span class="icon">文</span>
         <div>
           <h3>Grammar <span style="color:var(--muted);font-weight:500;font-size:.85em">文法</span></h3>
@@ -82,7 +155,7 @@
           <div class="meta"><span class="pill soon">1 book · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n4/reading.html">
+      <a class="module-card" href="../n4/reading.html" data-module="reading">
         <span class="icon">読</span>
         <div>
           <h3>Reading <span style="color:var(--muted);font-weight:500;font-size:.85em">読解</span></h3>
@@ -90,7 +163,7 @@
           <div class="meta"><span class="pill soon">1 book · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n4/listening.html">
+      <a class="module-card" href="../n4/listening.html" data-module="listening">
         <span class="icon">聴</span>
         <div>
           <h3>Listening <span style="color:var(--muted);font-weight:500;font-size:.85em">聴解</span></h3>
@@ -98,7 +171,7 @@
           <div class="meta"><span class="pill soon">No book uploaded yet</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n4/mock-tests.html">
+      <a class="module-card" href="../n4/mock-tests.html" data-module="mock-tests">
         <span class="icon">模</span>
         <div>
           <h3>Mock tests <span style="color:var(--muted);font-weight:500;font-size:.85em">模擬試験</span></h3>
@@ -106,7 +179,7 @@
           <div class="meta"><span class="pill soon">3 books · coming soon</span></div>
         </div>
       </a>
-      <a class="module-card" href="../n4/multi-skill.html">
+      <a class="module-card" href="../n4/multi-skill.html" data-module="multi-skill">
         <span class="icon">総</span>
         <div>
           <h3>All-in-one <span style="color:var(--muted);font-weight:500;font-size:.85em">総合</span></h3>
@@ -115,11 +188,6 @@
         </div>
       </a>
     </div>
-
-    <div class="section-title"><h2>Ready to study</h2></div>
-    <div class="book-grid">
-      <p style="color:var(--muted)">No course is complete at this level yet. Every uploaded book is listed in the modules above and in the <a href="../library.html">library</a>.</p>
-    </div>
   </main>
 
   <footer class="site-footer">
@@ -127,7 +195,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a class="brand" href="../index.html"><span class="brand-mark">日</span><span class="brand-text">Learn Japanese with Raj</span></a>
-          <p>Self-paced JLPT study pages — grammar, vocabulary, kanji, reading and listening — explained in English, Hindi and Gujarati with romaji.</p>
+          <p>Self-paced JLPT study pages for grammar, vocabulary, kanji, reading and listening, explained in English, Hindi and Gujarati with romaji.</p>
         </div>
         <div>
           <h4>Levels</h4>
@@ -137,6 +205,14 @@
             <li><a href="../n3/index.html">JLPT N3 · Intermediate</a></li>
             <li><a href="../n4/index.html">JLPT N4 · Elementary</a></li>
             <li><a href="../n5/index.html">JLPT N5 · Beginner</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Study tools</h4>
+          <ul>
+            <li><a href="../n1/vocab-cards.html">N1 vocabulary flashcards</a></li>
+            <li><a href="../n1/kanji-cards.html">N1 kanji flashcards</a></li>
+            <li><a href="../n1/quiz.html">N1 practice quiz</a></li>
           </ul>
         </div>
         <div>
