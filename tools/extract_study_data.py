@@ -753,6 +753,8 @@ OPT_RULES = [
     ("letter", lambda h: h in ("option", "#", "no", "no.", "", "choice", "opt")),
     ("jp", lambda h: h in ("japanese", "option text", "word", "answer", "reading", "jp", "選択肢", "expression", "sentence")),
     ("en", lambda h: h in ("english", "meaning", "en")),
+    ("hi", lambda h: h in ("hindi", "hi")),
+    ("gu", lambda h: h in ("gujarati", "gu")),
 ]
 
 skip_reasons = Counter()
@@ -772,16 +774,21 @@ def quiz_prompt(q: Node):
     return None
 
 
-def quiz_en(q: Node) -> str:
+def quiz_lang(q: Node, code: str) -> str:
+    """The question's translation line for one language (EN / HI / GU) from .q-translations."""
     tr = q.find(cls="q-translations")
     if tr is None:
         return ""
     for d in tr.find_all():
         b = d.find("b")
-        if b is not None and text_of(b).rstrip(":").strip().upper() == "EN" and d.tag != "b":
+        if b is not None and text_of(b).rstrip(":").strip().upper() == code and d.tag != "b":
             t = text_of(d)
-            return collapse(re.sub(r"^EN\s*:\s*", "", t))
+            return collapse(re.sub(r"^" + code + r"\s*:\s*", "", t))
     return ""
+
+
+def quiz_en(q: Node) -> str:
+    return quiz_lang(q, "EN")
 
 
 def extract_quizzes():
@@ -842,9 +849,10 @@ def parse_quiz(q: Node, path: Path, unit: str):
         rr = romaji_of(c) if c is not None else ""
         if rr:
             o["r"] = rr
-        en = text_of(cell(cells, cols.get("en")))
-        if en:
-            o["en"] = en
+        for lang in ("en", "hi", "gu"):
+            val = text_of(cell(cells, cols.get(lang)))
+            if val:
+                o[lang] = val
         opts.append(o)
     if sum(1 for o in opts if o["t"]) < 2:
         skip_reasons["empty option text"] += 1
@@ -856,9 +864,10 @@ def parse_quiz(q: Node, path: Path, unit: str):
     qr = romaji_of(prompt)
     if qr:
         item["qr"] = qr
-    en = quiz_en(q)
-    if en:
-        item["en"] = en
+    for lang in ("EN", "HI", "GU"):
+        val = quiz_lang(q, lang)
+        if val:
+            item[lang.lower()] = val
     item["opts"] = opts
     item["a"] = correct[0]
     why_el = q.find(cls="bp-why")

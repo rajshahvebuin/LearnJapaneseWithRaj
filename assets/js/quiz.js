@@ -175,7 +175,7 @@
         // Some books print romaji only under the correct option; show it up front
         // only when every option has it, otherwise reveal it after answering.
         prefs.romaji && o.r ? h("span", { class: "r", hidden: !allRomaji }, o.r) : null,
-        o.en ? h("span", { class: "e" }, o.en) : null)));
+        o.en || o.hi || o.gu ? h("span", { class: "e" }, langLine(o)) : null)));
 
     function pick(i) {
       if (answered) return;
@@ -192,7 +192,8 @@
       app.querySelectorAll(".qz-sent-r[hidden]").forEach((r) => (r.hidden = false));
       feedback.replaceChildren(
         h("div", { class: `verdict ${correct ? "ok" : "no"}` }, correct ? "✓ Correct" : `✗ The answer is ${q.a + 1}: ${q.opts[q.a].t}`),
-        q.en ? h("p", {}, h("b", {}, "EN: "), q.en) : null,
+        q.en || q.hi || q.gu ? h("div", { class: "qz-langs" },
+          ["en", "hi", "gu"].map((k) => (q[k] ? h("div", { class: "qz-lang" }, h("b", {}, k.toUpperCase()), h("span", { lang: k }, q[k])) : null))) : null,
         q.why ? h("p", {}, h("b", {}, "Why: "), q.why) : null,
         q.src ? h("p", { class: "src" }, "From ", h("a", { href: ROOT + q.src }, q.unit || "the study page"), " →") : null);
       feedback.hidden = false;
@@ -223,6 +224,11 @@
       if (!answered && n >= 1 && n <= q.opts.length) pick(n - 1);
       else if (answered && e.key === "Enter" && !e.target.closest("button, a")) next();
     };
+  }
+
+  // Option meanings in all three languages on one line: "EN · HI · GU".
+  function langLine(o) {
+    return ["en", "hi", "gu"].filter((k) => o[k]).map((k) => h("span", { lang: k }, o[k])).flatMap((el, i) => (i ? [" · ", el] : [el]));
   }
 
   // Kanji-reading and usage questions ask about one underlined word (field `u`,
