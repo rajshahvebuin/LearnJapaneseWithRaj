@@ -1,7 +1,8 @@
 // Learn Japanese with Raj: flashcards (vocabulary + kanji)
 //
-// Renders into <div class="tool-app" data-tool="vocab|kanji" data-src="…/assets/data/n1/vocab/"
-// data-site-root="../">. Reads <data-src>index.json (a list of decks) and loads a deck file on demand.
+// Renders into <div class="tool-app" data-tool="cards" data-src="…/assets/data/n1/" data-site-root="../">.
+// Reads vocab/index.json and kanji/index.json (lists of decks) and loads a deck file on demand.
+// One deck menu covers both kinds: "All vocabulary", "All kanji", or a single book.
 //
 // Card shapes (from tools/extract_study_data.py):
 //   vocab:        {jp, r, en, hi, gu, note?, src, unit}
@@ -10,14 +11,14 @@
 (function () {
   "use strict";
 
-  const app = document.querySelector('.tool-app[data-tool="vocab"], .tool-app[data-tool="kanji"]');
+  const app = document.querySelector('.tool-app[data-tool="cards"]');
   if (!app) return;
 
-  const KIND = app.dataset.tool;
-  const SRC = app.dataset.src;
+  const BASE = app.dataset.src;
+  const KINDS = { vocab: "Vocabulary", kanji: "Kanji" };
   const ROOT = app.dataset.siteRoot || "";
   const LEVEL = app.dataset.level || "n1";
-  const STORE = `ljwr-fc-${LEVEL}-${KIND}`;
+  const STORE = `ljwr-fc-${LEVEL}`;
 
   // ---------- tiny helpers ----------
   const h = (tag, attrs, ...kids) => {
@@ -61,7 +62,7 @@
   const cardId = (deckId, c) => `${deckId}|${c.k || c.jp || c.w}`;
 
   // ---------- state ----------
-  const prefs = load(`${STORE}-prefs`, { deck: "", reverse: false, romaji: true, hideKnown: false });
+  const prefs = load(`${STORE}-prefs`, { deck: "vocab:*", reverse: false, romaji: true, hideKnown: false, shuffled: false });
   const known = new Set(load(`${STORE}-known`, []));
   let decks = [];
   const deckCache = {};
@@ -79,18 +80,20 @@
   }
 
   async function loadDeck(d) {
-    if (!deckCache[d.id]) deckCache[d.id] = cardsOf(await fetchJSON(SRC + (d.file || `${d.id}.json`)));
-    return deckCache[d.id];
+    if (!deckCache[d.key]) deckCache[d.key] = cardsOf(await fetchJSON(`${BASE}${d.kind}/${d.file || d.id + ".json"}`));
+    return deckCache[d.key];
   }
 
-  async function selectDeck(id) {
-    prefs.deck = id;
+  // value is "<kind>:*" for every book of that kind, or a single deck key "<kind>:<id>"
+  async function selectDeck(value) {
+    prefs.deck = value;
     save(`${STORE}-prefs`, prefs);
-    const chosen = id ? decks.filter((d) => d.id === id) : decks;
+    const [kind, id] = value.split(":");
+    const chosen = decks.filter((d) => d.kind === kind && (id === "*" || d.id === id));
     status.textContent = "Loading cards…";
     const lists = await Promise.all(chosen.map(loadDeck));
     all = [];
-    chosen.forEach((d, i) => lists[i].forEach((card) => all.push({ deckId: d.id, deckType: d.type, card })));
+    chosen.forEach((d, i) => lists[i].forEach((card) => all.push({ deckId: d.key, card })));
     rebuild(false);
   }
 
@@ -118,7 +121,7 @@
   const deckSelect = h("select", { "aria-label": "Deck", onchange: (e) => selectDeck(e.target.value) });
   const search = h("input", {
     type: "search",
-    placeholder: KIND === "kanji" ? "Search kanji, word, reading, meaning" : "Search word, romaji, meaning",
+    placeholder: "Search word, kanji, reading, meaning",
     "aria-label": "Search cards",
     oninput: (e) => {
       query = e.target.value;
@@ -135,29 +138,12 @@
     });
     return h("label", { class: "tl-toggle" }, input, label);
   };
-  const shuffleBtn = h("button", { class: "btn btn-sm", type: "button", onclick: () => {
-    prefs.shuffled = true;
-    save(`${STORE}-prefs`, prefs);
-    rebuild(false);
-  } }, "Shuffle");
-  const orderBtn = h("button", { class: "btn btn-sm", type: "button", onclick: () => {
-    prefs.shuffled = false;
-    save(`${STORE}-prefs`, prefs);
-    rebuild(false);
-  } }, "Book order");
-  const resetBtn = h("button", { class: "btn btn-sm", type: "button", onclick: () => {
-    if (!confirm("Clear every card you marked as known?")) return;
-    known.clear();
-    save(`${STORE}-known`, []);
-    rebuild(true);
-  } }, "Reset known");
-
   const bar = h("div", { class: "tl-bar" },
     deckSelect, search,
     toggle("Meaning first", "reverse", () => render()),
     toggle("Romaji", "romaji", () => render()),
     toggle("Hide known", "hideKnown", () => rebuild(true)),
-    shuffleBtn, orderBtn, resetBtn);
+    toggle("Shuffle", "shuffled", () => rebuild(false)));
 
   const status = h("div", { class: "tl-status" });
   const progress = h("div", { class: "tl-progress" }, h("i"));
@@ -240,7 +226,7 @@
     actions.hidden = false;
     const { deckId, card } = view[pos];
     const isKnown = known.has(cardId(deckId, card));
-    const deck = decks.find((d) => d.id === deckId);
+    const deck = decks.find((d) => d.key === deckId);
     const tag = deck ? deck.title_en || deck.title : "";
     const cardEl = h("button", {
       class: "fc-card" + (flipped ? " flipped" : ""),
@@ -305,13 +291,19 @@
   // ---------- boot ----------
   (async function init() {
     try {
-      const index = await fetchJSON(SRC + "index.json");
-      decks = (index.decks || []).filter((d) => d.count !== 0);
+      for (const kind of Object.keys(KINDS)) {
+        const index = await fetchJSON(`${BASE}${kind}/index.json`);
+        const list = (index.decks || []).filter((d) => d.count !== 0).map((d) => ({ ...d, kind, key: `${kind}:${d.id}` }));
+        if (!list.length) continue;
+        decks.push(...list);
+        const total = list.reduce((n, d) => n + (d.count || 0), 0);
+        deckSelect.append(h("optgroup", { label: KINDS[kind] },
+          h("option", { value: `${kind}:*` }, `All ${KINDS[kind].toLowerCase()} (${total.toLocaleString()} cards)`),
+          list.map((d) => h("option", { value: d.key }, `${d.title}${d.title_en ? " · " + d.title_en : ""} (${(d.count || 0).toLocaleString()})`))));
+      }
       if (!decks.length) throw new Error("no decks");
-      const total = decks.reduce((n, d) => n + (d.count || 0), 0);
-      deckSelect.append(h("option", { value: "" }, `All books (${total.toLocaleString()} cards)`));
-      decks.forEach((d) => deckSelect.append(h("option", { value: d.id }, `${d.title}${d.title_en ? " · " + d.title_en : ""} (${(d.count || 0).toLocaleString()})`)));
-      const startDeck = decks.some((d) => d.id === prefs.deck) ? prefs.deck : "";
+      const valid = [...deckSelect.querySelectorAll("option")].some((o) => o.value === prefs.deck);
+      const startDeck = valid ? prefs.deck : `${decks[0].kind}:*`;
       deckSelect.value = startDeck;
       app.replaceChildren(bar, status, progress, stage, actions, keys);
       await selectDeck(startDeck);

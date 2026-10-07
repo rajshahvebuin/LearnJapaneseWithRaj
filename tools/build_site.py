@@ -11,7 +11,7 @@ course is completed:
     python tools/build_site.py --scan     # refresh catalog.json from book-source/ first
 
 What it writes
-  index.html, library.html, about.html, 404.html, .nojekyll
+  index.html, about.html, 404.html, .nojekyll
   nX/index.html                      level overview (N1–N5)
   nX/<module>.html                   module hub (generated ones only — the
                                      hand-built Sou-Matome course hubs are kept and
@@ -128,8 +128,7 @@ FONTS_URL = ('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;70
 # study tools per level: (file, short label, icon, title, blurb, data kind)
 TOOLS = {
     'n1': [
-        ('vocab-cards.html', 'Vocab cards', '語', 'Vocabulary flashcards', 'Every word from the N1 vocabulary books as flip cards, with romaji and EN/HI/GU meanings.', 'vocab'),
-        ('kanji-cards.html', 'Kanji cards', '漢', 'Kanji flashcards', 'N1 kanji with their compound words and readings, plus reading cards from Shin Kanzen Master.', 'kanji'),
+        ('flashcards.html', 'Flashcards', '札', 'Flashcards', 'Every N1 word and kanji from the books as flip cards, with romaji and EN/HI/GU meanings.', 'cards'),
         ('quiz.html', 'Quiz', '問', 'Practice quiz', 'Random questions from every N1 grammar, vocabulary and kanji exercise, checked against the book keys.', 'quiz'),
     ],
 }
@@ -138,14 +137,18 @@ LEVEL_MODS = {}  # filled in main(): level -> modules that have books
 
 def tool_count(level, kind):
     """Number of cards / questions in a level's study-tool data, or 0 if not generated yet."""
-    p = os.path.join(ROOT, 'assets', 'data', level, kind, 'index.json')
-    if not os.path.exists(p):
-        return 0
-    try:
-        d = json.load(open(p, encoding='utf-8'))
-    except ValueError:
-        return 0
-    return sum(x.get('count', 0) for x in d.get('decks', d.get('banks', [])))
+    kinds = ('vocab', 'kanji') if kind == 'cards' else (kind,)
+    n = 0
+    for k in kinds:
+        p = os.path.join(ROOT, 'assets', 'data', level, k, 'index.json')
+        if not os.path.exists(p):
+            continue
+        try:
+            d = json.load(open(p, encoding='utf-8'))
+        except ValueError:
+            continue
+        n += sum(x.get('count', 0) for x in d.get('decks', d.get('banks', [])))
+    return n
 
 
 # ---------------------------------------------------------------- catalog
@@ -294,7 +297,7 @@ def section_of(relpath):
     first = relpath.replace('\\', '/').split('/')[0]
     if first in LEVELS:
         return first
-    return {'index.html': 'home', 'library.html': 'library', 'about.html': 'about'}.get(first, '')
+    return {'index.html': 'home', 'about.html': 'about'}.get(first, '')
 
 
 def header(relpath):
@@ -305,7 +308,7 @@ def header(relpath):
         return f'<a href="{d}{href}"{cls}{extra}>{label}</a>'
     links = [a('index.html', 'Home', 'home')]
     links += [a(f'{k}/index.html', v['name'], k, f' data-level="{k}"') for k, v in LEVELS.items()]
-    links += ['<span class="nav-sep" aria-hidden="true"></span>', a('library.html', 'Library', 'library'), a('about.html', 'About', 'about')]
+    links += ['<span class="nav-sep" aria-hidden="true"></span>', a('about.html', 'About', 'about')]
     nav = '\n        '.join(links)
     return f"""<header class="site-header">
     <div class="container">
@@ -333,7 +336,8 @@ def level_nav(relpath):
     def ln(href, label, key, cls='ln'):
         on = ' active" aria-current="page' if key == cur else ''
         return f'<a class="{cls}{on}" href="{d}{level}/{href}">{label}</a>'
-    items = [f'<a class="lv-tag" href="{d}{level}/index.html">{LEVELS[level]["name"]}</a>', ln('index.html', 'Overview', 'overview')]
+    on = ' active" aria-current="page' if cur == 'overview' else ''
+    items = [f'<a class="lv-tag{on}" href="{d}{level}/index.html" title="JLPT {LEVELS[level]["name"]}: all books">{LEVELS[level]["name"]} books</a>']
     items += [ln(f'{m}.html', MODULES[m]['name'], m) for m in LEVEL_MODS.get(level, CORE)]
     tools = TOOLS.get(level, [])
     if tools:
@@ -350,41 +354,10 @@ def level_nav(relpath):
 
 def footer(relpath):
     d = depth_prefix(relpath)
-    lv = '\n            '.join(f'<li><a href="{d}{k}/index.html">JLPT {v["name"]} · {v["en"]}</a></li>' for k, v in LEVELS.items())
-    tl = '\n            '.join(f'<li><a href="{d}{lvl}/{f}">{LEVELS[lvl]["name"]} {title.lower()}</a></li>'
-                             for lvl, ts in TOOLS.items() for f, _l, _i, title, *_ in ts)
     return f"""<footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="brand" href="{d}index.html"><span class="brand-mark">日</span><span class="brand-text">Learn Japanese with Raj</span></a>
-          <p>Self-paced JLPT study pages for grammar, vocabulary, kanji, reading and listening, explained in English, Hindi and Gujarati with romaji.</p>
-        </div>
-        <div>
-          <h4>Levels</h4>
-          <ul>
-            {lv}
-          </ul>
-        </div>
-        <div>
-          <h4>Study tools</h4>
-          <ul>
-            {tl}
-          </ul>
-        </div>
-        <div>
-          <h4>Site</h4>
-          <ul>
-            <li><a href="{d}index.html">Home</a></li>
-            <li><a href="{d}library.html">Book library</a></li>
-            <li><a href="{d}about.html">How to use this site</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>Built by Raj · Hosted on GitHub Pages</span>
-        <span>Study notes based on published JLPT workbooks. The books themselves are not hosted here.</span>
-      </div>
+    <div class="container footer-bottom">
+      <a class="brand" href="{d}index.html"><span class="brand-mark">日</span><span class="brand-text">Learn Japanese with Raj</span></a>
+      <span>Study notes based on published JLPT workbooks. The books themselves are not hosted here.</span>
     </div>
   </footer>"""
 
@@ -474,23 +447,6 @@ def book_card(b, relpath, show_level=False, current_href=None):
             f'      </{tag}>')
 
 
-def module_card(level, mod, books, relpath):
-    d = depth_prefix(relpath)
-    m = MODULES[mod]
-    ready = [b for b in books if b['status'] == 'ready']
-    units = sum(b['units'] for b in ready)
-    if not books:
-        meta = '<span class="pill soon">No book uploaded yet</span>'
-    elif ready:
-        meta = f'<span class="pill ready">✓ {len(ready)} of {len(books)} books ready</span>' + (f' <span class="pill soon">{units} units</span>' if units else '')
-    else:
-        meta = f'<span class="pill soon">{len(books)} book{"s" if len(books) != 1 else ""} · coming soon</span>'
-    return (f'      <a class="module-card" href="{d}{level}/{mod}.html" data-module="{mod}">\n'
-            f'        <span class="icon">{m["icon"]}</span>\n'
-            f'        <div>\n          <h3>{m["name"]} <span style="color:var(--muted);font-weight:500;font-size:.85em">{m["jp"]}</span></h3>\n'
-            f'          <p>{m["desc"]}</p>\n          <div class="meta">{meta}</div>\n        </div>\n      </a>')
-
-
 def tool_cards(level, relpath):
     d = depth_prefix(relpath)
     out = []
@@ -526,65 +482,32 @@ def modules_for(level, books):
 
 def build_home(books):
     rel = 'index.html'
-    total = len(books)
-    ready = [b for b in books if b['status'] == 'ready']
-    pages = sum(study_pages(l) for l in LEVELS)
     cards = []
     for k, v in LEVELS.items():
         lb = [b for b in books if b['level'] == k]
         lr = [b for b in lb if b['status'] == 'ready']
         pct = round(100 * len(lr) / len(lb)) if lb else 0
-        mods = ''.join(f'<span>{MODULES[m]["name"]}</span>' for m in CORE)
-        cards.append(f'''      <a class="level-card {k}" href="{k}/index.html">
+        tools = ' · flashcards · quiz' if TOOLS.get(k) else ''
+        cards.append(f"""      <a class="level-card {k}" href="{k}/index.html">
         <span class="tag">{v["name"]}</span>
-        <h2>{v["en"]} <span style="color:var(--muted);font-weight:500">{v["jp"]}</span></h2>
+        <h2>{v["en"]} <span lang="ja" style="color:var(--muted);font-weight:500">{v["jp"]}</span></h2>
         <p>{v["blurb"]}</p>
-        <div class="progress" aria-hidden="true"><i style="width:{max(pct, 0)}%"></i></div>
-        <div class="progress-label">{len(lr)} of {len(lb)} books ready</div>
-        <span class="cta">Open {v["name"]} →</span>
-      </a>''')
-    featured = '\n'.join(book_card(b, rel, show_level=True) for b in ready)
-    body = f'''    <section class="hero-home">
+        <div class="progress" aria-hidden="true"><i style="width:{pct}%"></i></div>
+        <div class="progress-label">{len(lr)} of {len(lb)} books ready{tools}</div>
+      </a>""")
+    body = f"""    <section class="hero-home">
       <div>
         <span class="eyebrow">JLPT N1 – N5 · self-paced</span>
         <h1>Learn Japanese,<br /><span class="jp-accent">one day at a time.</span></h1>
-        <p>Day-by-day study pages built from the best JLPT workbooks — every grammar point, word and exercise explained in English, Hindi and Gujarati, with romaji under every Japanese line.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="n1/index.html">Start with N1 →</a>
-          <a class="btn" href="library.html">Browse the library</a>
-        </div>
+        <p>Study pages built from the best JLPT workbooks. Every grammar point, word and exercise is explained in English, Hindi and Gujarati, with romaji under every Japanese line.</p>
       </div>
       <div class="hero-art" aria-hidden="true"><span>日</span></div>
     </section>
 
-    <div class="stats">
-      <div class="stat"><b>{pages}</b><span>study pages</span></div>
-      <div class="stat"><b>{len(ready)}</b><span>complete courses</span></div>
-      <div class="stat"><b>{total}</b><span>books in the library</span></div>
-      <div class="stat"><b>5</b><span>JLPT levels</span></div>
-    </div>
-
-    <div class="section-title"><h2>Choose your level</h2><p>Each level has vocabulary, kanji, grammar, reading and listening.</p></div>
+    <div class="section-title"><h2>Choose your level</h2></div>
     <section class="level-grid">
 {chr(10).join(cards)}
-    </section>
-
-    <div class="section-title"><h2>N1 study tools</h2><p><a href="n1/index.html#tools">Open N1 →</a></p></div>
-    <div class="tool-grid">
-{tool_cards('n1', rel)}
-    </div>
-
-    <div class="section-title"><h2>How every study page works</h2></div>
-    <div class="steps">
-      <div class="step"><h3>Learn the points</h3><p>Each grammar point or word comes with meaning, connection rules, formation tables and every example from the book.</p></div>
-      <div class="step"><h3>Do every exercise</h3><p>All questions from the book, with the correct answer marked and a short “why” for each option — checked against the book's own key.</p></div>
-      <div class="step"><h3>Fix the confusions</h3><p>A confusion-pairs table and exam-trap notes close each page, so similar forms stop tripping you up.</p></div>
-    </div>
-
-    <div class="section-title"><h2>Complete courses</h2><p><a href="library.html">See all {total} books →</a></p></div>
-    <div class="book-grid">
-{featured}
-    </div>'''
+    </section>"""
     write(rel, page(rel, 'Learn Japanese with Raj · JLPT N1–N5 study pages', body,
                     desc='Self-paced JLPT N1–N5 study pages: grammar, vocabulary, kanji, reading and listening in English, Hindi and Gujarati with romaji.'))
 
@@ -597,7 +520,6 @@ def build_level(level, books):
                 key=lambda b: (order[b['module']], b['status'] != 'ready', b['title']))
     ready = [b for b in lb if b['status'] == 'ready']
     mods = modules_for(level, books)
-    cards = '\n'.join(module_card(level, m, [b for b in lb if b['module'] == m], rel) for m in mods)
     grid = '\n'.join(book_card(b, rel) for b in lb)
     units = sum(b['units'] for b in ready)
     if lb:
@@ -608,7 +530,7 @@ def build_level(level, books):
     </div>"""
     else:
         books_html = f"""    <div class="section-title" id="books"><h2>All {v["name"]} books</h2></div>
-    <p style="color:var(--muted)">No book has been uploaded for this level yet. See the <a href="../library.html">library</a>.</p>"""
+    <p style="color:var(--muted)">No book has been uploaded for this level yet.</p>"""
     tools = tool_cards(level, rel)
     tools_html = f"""
 
@@ -616,9 +538,7 @@ def build_level(level, books):
     <div class="tool-grid">
 {tools}
     </div>""" if tools else ''
-    body = f"""{crumbs(rel, [('Home', 'index.html'), (f'JLPT {v["name"]}', None)])}
-
-    <section class="level-hero">
+    body = f"""    <section class="level-hero">
       <div class="lv-badge">{v["name"]}</div>
       <div>
         <span class="section-label">JLPT {v["name"]} · <span lang="ja">{v["jp"]}</span></span>
@@ -628,12 +548,8 @@ def build_level(level, books):
       </div>
     </section>
 
-{books_html}{tools_html}
-
-    <div class="section-title" id="modules"><h2>Modules</h2><p>Each module page lists its books and how they fit together.</p></div>
-    <div class="module-grid">
-{cards}
-    </div>"""
+{books_html}
+{tools_html}"""
     write(rel, page(rel, f'JLPT {v["name"]} · Learn Japanese with Raj', body, body_class=f'level-page {level}',
                     desc=f'JLPT {v["name"]} ({v["en"]}) study pages: every book, plus flashcards and quizzes.'))
 
@@ -646,15 +562,14 @@ def build_tools(level):
         rel = f'{level}/{f}'
         d = depth_prefix(rel)
         js = 'quiz.js' if kind == 'quiz' else 'flashcards.js'
-        body = f"""{crumbs(rel, [('Home', 'index.html'), (f'JLPT {v["name"]}', f'{level}/index.html'), (label, None)])}
-
-    <div class="page-head tool-head">
+        src = f'{d}assets/data/{level}/' if kind == 'cards' else f'{d}assets/data/{level}/{kind}/'
+        body = f"""    <div class="page-head tool-head">
       <span class="section-label">JLPT {v["name"]} · Study tool</span>
       <h1>{title}</h1>
       <p>{blurb}</p>
     </div>
 
-    <div class="tool-app" data-tool="{kind}" data-level="{level}" data-src="{d}assets/data/{level}/{kind}/" data-site-root="{d}">
+    <div class="tool-app" data-tool="{kind}" data-level="{level}" data-src="{src}" data-site-root="{d}">
       <p class="tool-loading">Loading…</p>
       <noscript><p>This study tool needs JavaScript.</p></noscript>
     </div>"""
@@ -719,7 +634,7 @@ def build_placeholder(b):
     items = '\n'.join(f'        <li>{x}</li>' for x in WILL_CONTAIN[b['module']])
     status_note = ('<strong>Audio only — PDF needed</strong>This book was uploaded with its audio but without the PDF, so it cannot be built yet.'
                    if b['status'] == 'audio-only' else
-                   '<strong>Coming soon</strong>This book is in the library and will be built into day-by-day study pages in the same format as the finished courses.')
+                   '<strong>Coming soon</strong>This book is uploaded and will be built into day-by-day study pages in the same format as the finished courses.')
     body = f'''{crumbs(rel, [('Home', 'index.html'), (f'JLPT {v["name"]}', f'{b["level"]}/index.html'), (m['name'], f'{b["level"]}/{b["module"]}.html'), (esc(b['title']), None)])}
 
     <div class="page-head">
@@ -746,51 +661,6 @@ def build_placeholder(b):
     write(rel, page(rel, f'{b["title"]} · Learn Japanese with Raj', body, body_class=f'level-page {b["level"]}', extra_css=('day-page.css',)))
 
 
-def build_library(books):
-    rel = 'library.html'
-    lv_chips = ''.join(f'<button class="chip" type="button" data-filter-level="{k}" aria-pressed="false">{v["name"]}</button>' for k, v in LEVELS.items())
-    sections = []
-    for k, v in LEVELS.items():
-        lb = [b for b in books if b['level'] == k]
-        if not lb:
-            continue
-        mods = []
-        for mod in MODULE_ORDER:
-            mb = [b for b in lb if b['module'] == mod]
-            if not mb:
-                continue
-            grid = '\n'.join(book_card(b, rel) for b in mb)
-            mods.append(f'''      <div class="lib-module">
-        <h3>{MODULES[mod]["name"]} · {MODULES[mod]["jp"]}</h3>
-        <div class="book-grid">
-{grid}
-        </div>
-      </div>''')
-        sections.append(f'''    <section class="lib-level lv-{k}" data-level-section="{k}">
-      <h2><span class="dot"></span>JLPT {v["name"]} <span style="color:var(--muted);font-size:.7em;font-weight:600">{v["en"]} · {len(lb)} books</span></h2>
-{chr(10).join(mods)}
-    </section>''')
-    ready = sum(b['status'] == 'ready' for b in books)
-    body = f'''{crumbs(rel, [('Home', 'index.html'), ('Library', None)])}
-
-    <div class="page-head">
-      <span class="section-label">Book library</span>
-      <h1>Every book, every level</h1>
-      <p>{len(books)} JLPT workbooks across N1–N5. {ready} are complete study courses; the rest are queued and have a placeholder page.</p>
-    </div>
-
-    <div class="filter-bar" role="search">
-      <input type="search" placeholder="Search books — e.g. 新完全マスター, grammar, N3" aria-label="Search books" data-lib-search />
-      <div class="chip-group" aria-label="Filter by level">{lv_chips}</div>
-      <div class="chip-group" aria-label="Filter by status"><button class="chip" type="button" data-filter-status="ready" aria-pressed="false">Ready only</button></div>
-    </div>
-    <p class="empty-note" data-lib-empty>No books match your search.</p>
-
-{chr(10).join(sections)}'''
-    write(rel, page(rel, 'Library · Learn Japanese with Raj', body, extra_js=('library.js',),
-                    desc='All JLPT N1–N5 workbooks used on the site, with their study-course status.'))
-
-
 def build_about(books):
     rel = 'about.html'
     body = f'''{crumbs(rel, [('Home', 'index.html'), ('About', None)])}
@@ -804,10 +674,9 @@ def build_about(books):
     <div class="prose">
       <h2>Finding your way</h2>
       <ul>
-        <li><b>Levels</b> — N1 (hardest) to N5 (beginner). Each level page lists its modules.</li>
+        <li><b>Levels</b> — N1 (hardest) to N5 (beginner). Each level page lists every book for that level, with a filter by module.</li>
         <li><b>Modules</b> — vocabulary, kanji, grammar, reading and listening, plus mock tests, all-in-one books and textbooks where available.</li>
         <li><b>Books</b> — a module can have several books. Each finished book has its own contents page with every week, day or lesson as a chip.</li>
-        <li><b>Library</b> — every uploaded book in one searchable list, with its status.</li>
       </ul>
 
       <h2>Inside a study page</h2>
@@ -853,7 +722,7 @@ def build_404():
       <div class="hero-art" aria-hidden="true" style="max-width:160px;margin:0 auto 24px"><span style="font-size:3.4rem">迷</span></div>
       <h1>Page not found</h1>
       <p>This page doesn't exist — it may not have been built yet, or the link has a typo.</p>
-      <p style="margin-top:22px"><a class="btn btn-primary" href="index.html">Go to the home page</a> <a class="btn" href="library.html">Browse the library</a></p>
+      <p style="margin-top:22px"><a class="btn btn-primary" href="index.html">Go to the home page</a></p>
     </section>
   </main>
 </body>
@@ -936,8 +805,11 @@ def main():
     books = load()
     for lv in LEVELS:
         LEVEL_MODS[lv] = modules_for(lv, books)
-    generated = {'index.html', 'library.html', 'about.html'}
-    build_home(books); build_library(books); build_about(books); build_404()
+    generated = {'index.html', 'about.html'}
+    build_home(books); build_about(books); build_404()
+    for gone in ('library.html', 'assets/js/library.js') + tuple(f'{lv}/{f}' for lv in LEVELS for f in ('vocab-cards.html', 'kanji-cards.html')):
+        if os.path.exists(os.path.join(ROOT, gone)):
+            os.remove(os.path.join(ROOT, gone))
     open(os.path.join(ROOT, '.nojekyll'), 'w').close()
     for level in LEVELS:
         build_level(level, books); generated.add(f'{level}/index.html')

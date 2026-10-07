@@ -330,17 +330,6 @@ h1 { font-family: var(--font-display); font-weight: 700; }
 .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
 .hero-actions .btn { padding: 12px 20px; }
 
-/* ---------- stats ---------- */
-
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
-.stat {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 16px 18px; box-shadow: var(--shadow);
-}
-.stat b { display: block; font-family: var(--font-display); font-size: 1.7rem; line-height: 1.1; }
-.stat span { color: var(--muted); font-size: 0.84rem; }
-@media (max-width: 640px) { .stats { grid-template-columns: repeat(2, 1fr); } }
-
 /* ---------- level cards (home) ---------- */
 
 .level-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
@@ -372,25 +361,7 @@ h1 { font-family: var(--font-display); font-weight: 700; }
 .progress > i { display: block; height: 100%; background: var(--lc, var(--accent)); border-radius: 999px; }
 .progress-label { font-size: 0.76rem; color: var(--muted); margin-top: 5px; }
 
-/* ---------- module tiles ---------- */
-
-.module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-.module-card {
-  display: flex; gap: 14px; align-items: flex-start;
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 16px; text-decoration: none; color: var(--text); box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.module-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-.module-card .icon {
-  flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
-  font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
-  background: color-mix(in srgb, var(--mc, var(--accent)) 14%, transparent); color: var(--mc, var(--accent));
-}
-.module-card > div { min-width: 0; }
-.module-card h3 { margin: 0 0 2px; font-size: 1rem; }
-.module-card p { margin: 0 0 8px; color: var(--muted); font-size: 0.85rem; }
-.module-card .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+/* ---------- module colours (book covers, filter) ---------- */
 
 [data-module="vocabulary"], .m-vocabulary { --mc: var(--m-vocabulary); }
 [data-module="kanji"], .m-kanji { --mc: var(--m-kanji); }
@@ -451,17 +422,6 @@ a.book-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); b
 
 /* ---------- filters ---------- */
 
-.filter-bar {
-  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 10px; box-shadow: var(--shadow); margin-bottom: 18px;
-}
-.filter-bar input[type="search"] {
-  flex: 1 1 260px; min-width: 0;
-  border: 1px solid var(--border); background: var(--bg); color: var(--text);
-  border-radius: 10px; padding: 9px 12px; font: inherit; font-size: 0.92rem;
-}
-.filter-bar input[type="search"]:focus { outline: none; border-color: var(--accent); }
 .chip-group { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip {
   border: 1px solid var(--border); background: var(--surface); color: var(--muted);
@@ -470,16 +430,7 @@ a.book-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); b
 .chip:hover { color: var(--text); border-color: var(--border-strong); }
 .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
 .chip .n { opacity: 0.6; margin-left: 4px; font-weight: 500; }
-.empty-note { display: none; color: var(--muted); text-align: center; padding: 24px; }
-
-/* ---------- library ---------- */
-
-.lib-level { margin-top: 34px; }
-.lib-level > h2 { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.4rem; margin: 0 0 12px; }
-.lib-level > h2 .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
-.lib-module > h3 { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 22px 0 10px; }
-
-/* ---------- notes, steps, prose ---------- */
+/* ---------- notes, prose ---------- */
 
 .sample-note {
   display: flex; gap: 12px; align-items: flex-start;
@@ -488,20 +439,6 @@ a.book-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); b
 }
 .sample-note strong { display: block; margin-bottom: 2px; }
 .sample-note > span { font-size: 1.3rem; line-height: 1.2; }
-
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; counter-reset: step; }
-.step {
-  position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 18px 18px 16px 58px; box-shadow: var(--shadow);
-}
-.step::before {
-  counter-increment: step; content: counter(step);
-  position: absolute; left: 16px; top: 16px; width: 30px; height: 30px; border-radius: 9px;
-  display: grid; place-items: center; background: var(--accent-soft); color: var(--accent);
-  font-weight: 800; font-family: var(--font-display);
-}
-.step h3 { margin: 0 0 4px; font-size: 1rem; }
-.step p { margin: 0; color: var(--muted); font-size: 0.9rem; }
 
 .prose { max-width: 760px; }
 .prose h2 { font-family: var(--font-display); margin-top: 32px; }
@@ -529,47 +466,6 @@ a.book-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); b
 .tool-card p { margin: 0; color: var(--muted); font-size: 0.88rem; flex: 1; }
 .tool-card .tool-meta { font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-top: 8px; }
 
-/* ---------- older card components (kept for compatibility) ---------- */
-
-.toolbar { display: flex; gap: 10px; margin-bottom: 16px; }
-.toolbar input[type="search"] { flex: 1; border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 10px; padding: 9px 12px; font: inherit; }
-.toolbar input[type="search"]:focus { outline: none; border-color: var(--accent); }
-.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; padding-bottom: 48px; }
-.word-card, .kanji-card, .grammar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
-.word-card .jp, .kanji-card .jp { font-size: 1.5rem; font-weight: 700; }
-.word-card .reading, .word-card .meaning, .kanji-card .meaning, .kanji-card .readings { color: var(--muted); font-size: 0.9rem; }
-.word-card .pos, .kanji-card .jlpt { font-size: 0.72rem; font-weight: 700; color: var(--accent); }
-.word-card .example { margin-top: 10px; font-size: 0.86rem; border-top: 1px dashed var(--border); padding-top: 8px; }
-.kanji-card .meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-.kanji-card .meta span { font-size: 0.72rem; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; }
-.grammar-list { display: flex; flex-direction: column; gap: 12px; padding-bottom: 48px; }
-.grammar-card .pattern { font-weight: 700; font-size: 1.1rem; color: var(--accent); }
-.grammar-card .meaning { color: var(--muted); }
-.grammar-card .example { margin-top: 8px; }
-.grammar-card .example .ex-jp { font-weight: 600; }
-.grammar-card .example .ex-en { color: var(--muted); font-size: 0.9rem; }
-.grammar-card details { margin-top: 8px; }
-.grammar-card summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 0.88rem; }
-.passage { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px; font-size: 1.05rem; }
-.passage p { margin: 0 0 14px; }
-.passage p:last-child { margin-bottom: 0; }
-.passage .translation { color: var(--muted); font-size: 0.92rem; }
-.audio-player { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
-.audio-player .play-icon { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); flex-shrink: 0; }
-.audio-player audio { width: 100%; }
-.audio-player .track-name { font-weight: 700; }
-.audio-player .track-meta { color: var(--muted); font-size: 0.84rem; }
-.transcript { display: none; }
-.transcript.open { display: block; }
-.quiz { display: flex; flex-direction: column; gap: 12px; }
-.quiz-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-.quiz-item .q { font-weight: 600; margin-bottom: 10px; }
-.quiz-item .choices { display: grid; gap: 8px; }
-.quiz-item .choice { text-align: left; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 10px; padding: 9px 12px; font: inherit; cursor: pointer; }
-.quiz-item .choice:hover { border-color: var(--border-strong); }
-.quiz-item .choice.correct { background: var(--ok-soft); border-color: var(--ok); }
-.quiz-item .choice.wrong { background: var(--bad-soft); border-color: var(--bad); }
-
 /* ---------- romaji & glossary tooltips ---------- */
 
 .romaji { display: block; font-size: 0.8em; color: var(--muted); font-style: italic; font-family: var(--font-sans); font-weight: 400; letter-spacing: 0; }
@@ -594,18 +490,12 @@ td .romaji, .jp .romaji { margin-top: 1px; }
   margin-top: 64px;
   border-top: 1px solid var(--border);
   background: var(--bg-2);
-  color: var(--muted); font-size: 0.86rem;
-  padding: 40px 0 28px;
+  color: var(--muted); font-size: 0.82rem;
+  padding: 18px 0;
 }
-.site-footer a { color: var(--muted); text-decoration: none; }
-.site-footer a:hover { color: var(--text); text-decoration: underline; }
-.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 28px; }
-.footer-grid h4 { margin: 0 0 10px; color: var(--text); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; }
-.footer-grid ul { list-style: none; margin: 0; padding: 0; }
-.footer-grid li { margin-bottom: 7px; }
-.footer-brand p { margin: 10px 0 0; max-width: 340px; }
-.footer-bottom { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; }
-@media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-bottom .brand .brand-mark { width: 28px; height: 28px; font-size: 0.95rem; border-radius: 8px; }
+.footer-bottom .brand .brand-text { font-size: 0.88rem; }
 
 /* ---------- print ---------- */
 
